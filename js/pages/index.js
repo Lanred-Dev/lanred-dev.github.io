@@ -45,9 +45,9 @@
                 duration: 400,
                 easing: "linear",
             },
-            duration: 1000,
+            duration: 750,
             easing: "easeOutExpo",
-            delay: (_, Index) => 75 * Index,
+            delay: (_, Index) => 50 * Index,
             begin: () => {
                 Logo_Text.style["display"] = "block";
                 Slogan_Text.style["display"] = "block";
@@ -64,8 +64,8 @@
                 duration: 400,
                 easing: "linear",
             },
-            duration: 1000,
+            duration: 750,
             easing: "easeOutExpo",
-            delay: (_, Index) => 75 * Index,
+            delay: (_, Index) => 50 * Index,
         });
 })();
