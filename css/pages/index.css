@@ -1,6 +1,10 @@
 .body-inner-content .page-content {
-    height: 100vh;
     width: 100vw;
+}
+
+.body-inner-content .page-content .welcome {
+    width: 100%;
+    height: 100vh;
 }
 
 .body-inner-content .page-content .welcome .container-content {
@@ -70,4 +74,48 @@
     right: 22vw;
     top: 50%;
     transform: translateY(-50%);
+}
+
+.body-inner-content .page-content .page-section.use-page-section {
+    width: 100%;
+    padding: 150px 17vw;
+    box-sizing: border-box;
+}
+
+.body-inner-content .page-content .page-section.use-page-section .section-header {
+    margin-bottom: 40px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.body-inner-content .page-content .page-section.use-page-section .section-header .title {
+    color: var(--text-color);
+    font-size: 40px;
+    font-family: "bold";
+}
+
+.body-inner-content .page-content .page-section.use-page-section .section-header .description {
+    color: var(--text-color);
+    font-size: 16px;
+    font-family: "regular";
+    margin-top: 10px;
+    max-width: 60%;
+}
+
+.body-inner-content .page-content .page-section.use-page-section .section-divider {
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.body-inner-content .page-content .page-section.use-page-section .section-divider .divider-line {
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 0;
+    background-image: linear-gradient(to right, transparent, var(--color-1), transparent);
 }

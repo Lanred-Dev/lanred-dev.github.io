@@ -15,13 +15,16 @@
 
 :root {
     --border-radius: 5px;
-    --sec-border-radius: 7px;
+    --border-radius-2: 7px;
+    --border-radius-3: 15px;
     --background-1: #1a1c1e;
     --background-2: #0f1011;
     --background-2-faded: rgba(15, 16, 17, 0.95);
     --background-2-faded-2: rgba(15, 16, 17, 0.7);
+    --background-2-faded-3: rgba(15, 16, 17, 0.55);
     --background-3: #1e2022;
     --color-1: #FB116F;
+    --color-1-faded: rgba(251, 17, 111, 0.5);
     --color-2: #7730FF;
     --color-2-faded: rgba(119, 48, 255, 0.2);
     --transition-function: ease-in-out;
@@ -159,5 +162,6 @@ button:not(.disabled):not(.dont-use-default-style):hover:after,
     position: relative;
     overflow: hidden;
     z-index: -1;
+    background-color: var(--color-1);
 }
 /* end banner */

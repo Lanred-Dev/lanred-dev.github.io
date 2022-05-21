@@ -69,3 +69,40 @@
             delay: (_, Index) => 50 * Index,
         });
 })();
+
+(function () {
+    const Page_Navbar = document.querySelector(".page-navbar");
+    const Scroll_Status_Container = Page_Navbar.querySelector(".scroll-status-container");
+    const Scroll_Status_Items = {};
+    Scroll_Status_Container.querySelectorAll(".text").forEach((Item) => {
+        Scroll_Status_Items[Item.dataset.section] = Item;
+    });
+    const Page_Sections = document.querySelectorAll(".page-section");
+    let Current_Page_Section = Page_Sections[0];
+    const Update_Scroll_Status = () => {
+        Page_Sections.forEach((Section) => {
+            const Section_Name = Section.dataset.section;
+            const Section_Top = Section.offsetTop;
+            const Section_Height = Section.clientHeight;
+            const Scroll_Status_Item = Scroll_Status_Items[Section_Name];
+
+            if (scrollY >= (Section_Top - Section_Height / 3)) {
+                Current_Page_Section = Section_Name;
+            }
+        });
+
+        for (const Item in Scroll_Status_Items) {
+            if (Item === Current_Page_Section) {
+                Scroll_Status_Items[Item].classList.add("active");
+            } else {
+                Scroll_Status_Items[Item].classList.remove("active");
+            }
+        }
+    }
+
+    Update_Scroll_Status();
+
+    window.addEventListener("scroll", () => {
+        Update_Scroll_Status();
+    });
+})();
