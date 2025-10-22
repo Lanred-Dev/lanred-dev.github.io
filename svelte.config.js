@@ -6,10 +6,8 @@ const config = {
     preprocess: vitePreprocess({ script: true }),
 
     kit: {
+        appDir: "internal",
         adapter: adapter(),
-        paths: {
-            base: process.env.NODE_ENV === "development" ? "" : "/lanred-dev.github.io",
-        },
     },
 };
 
