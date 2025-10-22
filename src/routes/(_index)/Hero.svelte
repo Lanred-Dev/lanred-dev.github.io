@@ -211,7 +211,7 @@
         {@render profileLink(
             42,
             32,
-            "/lanred-dev.github.io/icons/GitHub.png",
+            "/icons/GitHub.png",
             "Github Icon",
             "https://github.com/lanred-dev"
         )}
@@ -219,15 +219,15 @@
         {@render profileLink(
             65,
             73,
-            "/lanred-dev.github.io/icons/Mail.svg",
+            "/icons/Mail.svg",
             "Mail Icon",
             "mailto:landon.redmond0@gmail.com"
         )}
     </div>
 
     <button class="x-center bottom-10 size-7 opacity-70" aria-label="Scroll down">
-        <img src="/lanred-dev.github.io/icons/ChevronDown.svg" alt="Down Arrow Icon" class="DownArrow1" />
-        <img src="/lanred-dev.github.io/icons/ChevronDown.svg" alt="Down Arrow Icon" class="DownArrow2" />
+        <img src="/icons/ChevronDown.svg" alt="Down Arrow Icon" class="DownArrow1" />
+        <img src="/icons/ChevronDown.svg" alt="Down Arrow Icon" class="DownArrow2" />
 
         <style lang="postcss">
             .DownArrow1,
