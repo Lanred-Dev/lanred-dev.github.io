@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@theme {
+    --background-color-page: #020208;
+
+    --text-color-primary: #f7f9fa;
+}
+
+@layer base {
+    @font-face {
+        font-family: "PlusJakartaSans";
+        src: url("/fonts/PlusJakartaSans.ttf") format("truetype");
+        font-style: normal;
+        font-display: swap;
+    }
+
+    body {
+        font-family: PlusJakartaSans, sans-serif;
+        @apply bg-page text-primary cover-screen;
+    }
+}
+
+@utility cover-screen {
+    @apply h-screen w-full;
+}
+
+@utility x-center {
+    @apply absolute left-1/2 -translate-x-1/2;
+}
+
+@utility y-center {
+    @apply absolute top-1/2 -translate-y-1/2;
+}
