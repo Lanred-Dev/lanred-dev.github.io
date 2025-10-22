@@ -175,15 +175,15 @@
     });
 </script>
 
-<div class="cover-screen">
+<div class="cover-screen overflow-hidden relative">
     <canvas bind:this={Canvas} class="y-center x-center cover-screen"></canvas>
 
-    <div class="y-center left-[10%] z-1 md:left-[13%] lg:left-[15%]">
-        <h1 class="text-3xl font-medium text-white md:text-5xl">Hi, I'm Landon</h1>
+    <div class="y-center left-[10%] z-2 md:left-[13%] lg:left-[15%]">
+        <h1 class="text-3xl font-medium md:text-5xl">Hi, I'm Landon</h1>
         <p class="mt-2 text-xl">a Computer Engineering student at UAH</p>
     </div>
 
-    <div class="y-center right-2 h-screen w-[40%]">
+    <div class="y-center right-2 h-screen w-[40%] z-2">
         {#snippet profileLink(x: number, y: number, icon: string, alt: string, href: string)}
             <a
                 {href}
@@ -225,7 +225,7 @@
         )}
     </div>
 
-    <button class="x-center bottom-10 size-7 opacity-70" aria-label="Scroll down">
+    <button class="x-center bottom-10 size-7 opacity-70 z-2" aria-label="Scroll down">
         <img src="/icons/ChevronDown.svg" alt="Down Arrow Icon" class="DownArrow1" />
         <img src="/icons/ChevronDown.svg" alt="Down Arrow Icon" class="DownArrow2" />
 
@@ -271,4 +271,6 @@
             }
         </style>
     </button>
+
+        <div class="absolute bottom-0 left-0 h-1/8 w-full bg-linear-to-t from-page to-transparent z-1"></div>
 </div>
