@@ -1,9 +1,17 @@
 @import "tailwindcss";
 
 @theme {
-    --background-color-page: #020208;
+    --color-page: #020208;
+
+    --color-uah-blue: #003da5;
+
+    --background-color-container: #0a0a11;
+    --background-color-button: #712b2b;
 
     --text-color-primary: #f7f9fa;
+
+    --radius-container: 20px;
+    --radius-button: 15px;
 }
 
 @layer base {
@@ -30,4 +38,8 @@
 
 @utility y-center {
     @apply absolute top-1/2 -translate-y-1/2;
+}
+
+@utility button-primary {
+    @apply bg-button rounded-button px-6 py-4 text-lg text-center font-medium;
 }
