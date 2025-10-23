@@ -2,14 +2,17 @@
 
 @theme {
     --color-page: #020208;
+    --color-scrollbar: #d4d7d8;
 
     --color-uah-blue: #003da5;
 
     --background-color-container: #0a0a11;
-    --background-color-button: #712b2b;
+    --background-color-button: #2b1f4f;
 
     --text-color-primary: #f7f9fa;
     --text-color-secondary: #b0b8c1;
+
+    --border-color-container: #1e1e28;
 
     --radius-container: 20px;
     --radius-button: 15px;
@@ -27,6 +30,13 @@
         font-family: PlusJakartaSans, sans-serif;
         @apply bg-page text-primary cover-screen;
     }
+
+    * {
+        @apply touch-manipulation focus:outline-none;
+
+        scrollbar-width: none;
+        scrollbar-color: var(--color-scrollbar) transparent;
+    }
 }
 
 @utility cover-screen {
@@ -42,5 +52,17 @@
 }
 
 @utility button-primary {
-    @apply bg-button rounded-button px-5 py-2 text-lg text-center font-medium;
+    @apply bg-button rounded-button px-5 py-2 text-center text-lg font-medium;
+}
+
+@utility button-icon {
+    @apply flex items-center gap-2 text-center text-lg font-medium opacity-70 transition-opacity hover:opacity-100;
+
+    img {
+        @apply size-5;
+    }
+}
+
+@utility container {
+    @apply bg-container border-container rounded-container border p-8;
 }
