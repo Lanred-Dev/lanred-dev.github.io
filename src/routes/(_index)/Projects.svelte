@@ -1,70 +1,127 @@
 <script lang="ts">
+    interface Project {
+        name: string;
+        description: string;
+        tech: string;
+        source: string;
+        demo?: {
+            text: string;
+            url: string;
+        };
+    }
+
+    const PROJECTS: Project[] = [
+        {
+            name: "indxo.app",
+            description: "A Quizlet inspired studying website built with SvelteKit.",
+            tech: "SvelteKit, Node.js, MongoDB",
+            source: "https://github.com/indxo-app/indxo.app",
+            demo: {
+                text: "Live Demo",
+                url: "https://indxo.app",
+            },
+        },
+        {
+            name: "extro",
+            description: "A 2D game engine written in Python, using pyray (Raylib) for rendering.",
+            tech: "Python, Raylib, C++",
+            source: "https://github.com/Lanred-Dev/extro",
+        },
+        {
+            name: "justreddit",
+            description:
+                "A simple no-dependency Reddit API wrapper for getting post, comment, and subreddit metadata.",
+            tech: "TypeScript, Node.js",
+            source: "https://github.com/Lanred-Dev/justreddit",
+            demo: {
+                text: "NPM Package",
+                url: "https://www.npmjs.com/package/justreddit",
+            },
+        },
+        {
+            name: "Verbose",
+            description:
+                "A simple Discord bot that keeps track of the most used words in a server.",
+            tech: "TypeScript, Discord.js, Node.js",
+            source: "https://github.com/Lanred-Dev/verbose",
+        },
+        {
+            name: "Mandelbrot Viewer",
+            description: "A real-time Mandelbrot set viewer written in C++ using OpenGL.",
+            tech: "C++, OpenGL",
+            source: "https://github.com/Lanred-Dev/mandelbrot-viewer",
+            demo: {
+                text: "Download",
+                url: "https://github.com/Lanred-Dev/mandelbrot-viewer/releases",
+            },
+        },
+        {
+            name: "HarderMC",
+            description:
+                "A Paper plugin that makes Minecraft survival harder with events, stronger mobs, and a fear system.",
+            tech: "Java, PaperMC",
+            source: "https://github.com/Lanred-Dev/HarderMC",
+        },
+        {
+            name: "Fluid",
+            description: "Alternative to Roblox's TweenService.",
+            tech: "Lua",
+            source: "https://github.com/Lanred-Dev/Fluid",
+        },
+    ];
+
+    let Container: HTMLElement;
+    let showAll: boolean = $state.raw(false);
 </script>
 
-<div class="cover-screen px-[10%] py-[10%] md:px-[13%] lg:px-[15%]" id="projects">
+<div
+    class="min-h-screen w-full px-[10%] py-[10%] md:px-[13%] lg:px-[15%]"
+    id="projects"
+    bind:this={Container}
+>
     <h2 class="text-3xl font-medium md:text-5xl">What have I done?</h2>
 
     <div class="mt-10 grid grid-cols-2 gap-6">
-        {#snippet project(name: string, description: string, tech: string, link: string)}
+        {#snippet project({ name, description, tech, source, demo }: Project)}
             <div class="container flex flex-col justify-between">
-                <p class="text-sm mb-0.5 text-secondary">{tech}</p>
+                <p class="text-secondary mb-0.5 text-sm">{tech}</p>
                 <h3 class="mb-2 text-2xl font-semibold">{name}</h3>
                 <p class="grow text-lg">{description}</p>
 
-                <div class="mt-8 flex gap-6 items-center">
-                    <a class="button-primary" href={link} target="_blank" rel="noopener noreferrer"> Live Demo </a>
-                    <a class="button-icon" href={link} target="_blank" rel="noopener noreferrer"> <img src="/icons/GitHub.png" alt="GitHub"> Source </a>
+                <div class="mt-8 flex items-center gap-6">
+                    {#if demo}
+                        <a
+                            class="button-primary"
+                            href={demo.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            {demo.text}
+                        </a>
+                    {/if}
+
+                    <a class="button-icon" href={source} target="_blank" rel="noopener noreferrer">
+                        <img src="/icons/GitHub.png" alt="GitHub" /> Source
+                    </a>
                 </div>
             </div>
         {/snippet}
 
-        {@render project(
-            "indxo.app",
-            "A Quizlet inspired studying website built with SvelteKit.",
-            "SvelteKit, Node.js, MongoDB",
-            "https://example.com/personal-portfolio"
-        )}
-
-        {@render project(
-            "extro",
-            "A 2D game engine written in Python, using pyray (Raylib) for rendering.",
-            "Python, Raylib, C++",
-            "https://github.com/Lanred-Dev/extro"
-        )}
-
-        {@render project(
-            "justreddit",
-            "A simple no-dependency Reddit API wrapper for getting post, comment, and subreddit metadata.",
-            "TypeScript, Node.js",
-            "https://github.com/Lanred-Dev/justreddit"
-        )}
-
-        {@render project(
-            "Verbose",
-            "A simple Discord bot that keeps track of the most used words in a server.",
-            "TypeScript, Discord.js, Node.js",
-            "https://github.com/Lanred-Dev/verbose"
-        )}
-
-        {@render project(
-            "Mandelbrot Viewer",
-            "A real-time Mandelbrot set viewer written in C++ using OpenGL.",
-            "C++, OpenGL",
-            "https://github.com/Lanred-Dev/mandelbrot-viewer"
-        )}
-
-        {@render project(
-            "HarderMC",
-            "A Paper plugin that makes Minecraft survival harder with events, stronger mobs, and a fear system.",
-            "Java, PaperMC",
-            "https://github.com/Lanred-Dev/HarderMC"
-        )}
-
-        {@render project(
-            "Fluid",
-            "Alternative to Roblox's TweenService.",
-            "Lua",
-            "https://github.com/Lanred-Dev/Fluid"
-        )}
+        {#each PROJECTS as info, index}
+            {#if showAll || index < 4}
+                {@render project(info)}
+            {/if}
+        {/each}
     </div>
+
+    <button
+        class="button-secondary mt-6"
+        onclick={() => {
+            showAll = !showAll;
+
+            if (!showAll) Container.scrollIntoView({ behavior: "smooth" });
+        }}
+    >
+        {#if showAll}Show Less{:else}Show All{/if}
+    </button>
 </div>
