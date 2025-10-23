@@ -9,6 +9,7 @@
     --background-color-button: #712b2b;
 
     --text-color-primary: #f7f9fa;
+    --text-color-secondary: #b0b8c1;
 
     --radius-container: 20px;
     --radius-button: 15px;
@@ -41,5 +42,5 @@
 }
 
 @utility button-primary {
-    @apply bg-button rounded-button px-6 py-4 text-lg text-center font-medium;
+    @apply bg-button rounded-button px-5 py-2 text-lg text-center font-medium;
 }
