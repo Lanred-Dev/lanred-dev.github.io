@@ -50,7 +50,7 @@
             radius: 300,
             color: "#fdda24",
             opacity: 0.09,
-        }
+        },
     ];
 
     function getRandomPosition() {
@@ -66,7 +66,7 @@
 
         context.clearRect(0, 0, canvasWidth, canvasHeight);
         offscreenContext.clearRect(0, 0, canvasWidth, canvasHeight);
-        offscreenContext.globalCompositeOperation = "lighter"
+        offscreenContext.globalCompositeOperation = "lighter";
 
         stars.forEach((star) => {
             if (star.isAnimating) {
@@ -95,7 +95,7 @@
             context.fillStyle = "#FFFFFF";
             context.fill();
         });
-        
+
         blobs.forEach(({ x, y, radius, color, opacity }) => {
             offscreenContext.globalAlpha = opacity;
             offscreenContext.fillStyle = color;
@@ -105,7 +105,12 @@
             offscreenContext.fill();
         });
 
-        const imageData = offscreenContext.getImageData(0, 0, OffscreenCanvas.width, OffscreenCanvas.height);
+        const imageData = offscreenContext.getImageData(
+            0,
+            0,
+            OffscreenCanvas.width,
+            OffscreenCanvas.height
+        );
         const data = new Uint8Array(imageData.data.buffer);
         glur(data, OffscreenCanvas.width, OffscreenCanvas.height, 140);
         offscreenContext.putImageData(imageData, 0, 0);
@@ -175,7 +180,7 @@
     });
 </script>
 
-<div class="cover-screen overflow-hidden relative">
+<div class="cover-screen relative overflow-hidden">
     <canvas bind:this={Canvas} class="y-center x-center cover-screen"></canvas>
 
     <div class="y-center left-[10%] z-2 md:left-[13%] lg:left-[15%]">
@@ -183,18 +188,23 @@
         <p class="mt-2 text-xl">a Computer Engineering student at UAH</p>
     </div>
 
-    <div class="y-center right-2 h-screen w-[40%] z-2">
+    <div class="y-center right-2 z-2 h-screen w-[40%]">
         {#snippet profileLink(x: number, y: number, icon: string, alt: string, href: string)}
             <a
                 {href}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="profileLink absolute size-8 -translate-x-1/2 -translate-y-1/2 transition-all duration-200 hover:scale-110"
+                class="profileLink group absolute flex size-8 -translate-x-1/2 -translate-y-1/2 items-center gap-2 transition-all duration-200 hover:scale-110"
                 aria-label={alt}
                 style:right="{x}%"
                 style:top="{y}%"
             >
                 <img src={icon} {alt} class="aspect-square w-full" />
+                <p
+                    class="translate-y-0.5 opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100"
+                >
+                    {alt}
+                </p>
             </a>
         {/snippet}
 
@@ -212,20 +222,16 @@
             42,
             32,
             "/icons/GitHub.png",
-            "Github Icon",
+            "Github",
             "https://github.com/lanred-dev"
         )}
 
-        {@render profileLink(
-            65,
-            73,
-            "/icons/Mail.svg",
-            "Mail Icon",
-            "mailto:landon.redmond0@gmail.com"
-        )}
+        {@render profileLink(65, 73, "/icons/Mail.svg", "Mail", "mailto:landon.redmond0@gmail.com")}
+
+        {@render profileLink(85, 20, "/icons/Resume.svg", "Resume", "/Landon_Redmond_Resume.pdf")}
     </div>
 
-    <button class="x-center bottom-10 size-7 opacity-70 z-2" aria-label="Scroll down">
+    <button class="x-center bottom-10 z-2 size-7 opacity-70" aria-label="Scroll down">
         <img src="/icons/ChevronDown.svg" alt="Down Arrow Icon" class="DownArrow1" />
         <img src="/icons/ChevronDown.svg" alt="Down Arrow Icon" class="DownArrow2" />
 
@@ -272,5 +278,7 @@
         </style>
     </button>
 
-        <div class="absolute bottom-0 left-0 h-1/8 w-full bg-linear-to-t from-page to-transparent z-1"></div>
+    <div
+        class="from-page absolute bottom-0 left-0 z-1 h-1/8 w-full bg-linear-to-t to-transparent"
+    ></div>
 </div>
