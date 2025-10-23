@@ -226,7 +226,13 @@
             "https://github.com/lanred-dev"
         )}
 
-        {@render profileLink(65, 73, "/icons/Mail.svg", "Mail", "mailto:landon.redmond0@gmail.com")}
+        {@render profileLink(
+            65,
+            73,
+            "/icons/Mail.svg",
+            "EMail",
+            "mailto:landon.redmond0@gmail.com"
+        )}
 
         {@render profileLink(85, 20, "/icons/Resume.svg", "Resume", "/Landon_Redmond_Resume.pdf")}
     </div>
