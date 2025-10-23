@@ -220,7 +220,7 @@
 
         {@render profileLink(
             42,
-            32,
+            41,
             "/icons/GitHub.png",
             "Github",
             "https://github.com/lanred-dev"
@@ -230,11 +230,11 @@
             65,
             73,
             "/icons/Mail.svg",
-            "EMail",
+            "Email",
             "mailto:landon.redmond0@gmail.com"
         )}
 
-        {@render profileLink(85, 20, "/icons/Resume.svg", "Resume", "/Landon_Redmond_Resume.pdf")}
+        {@render profileLink(82, 28, "/icons/Resume.svg", "Resume", "/Landon_Redmond_Resume.pdf")}
     </div>
 
     <button class="x-center bottom-10 z-2 size-7 opacity-70" aria-label="Scroll down">
