@@ -1,19 +1,19 @@
 <script lang="ts">
 </script>
 
-<div class="cover-screen px-[10%] py-[10%] md:px-[13%] lg:px-[15%]">
+<div class="cover-screen px-[10%] py-[10%] md:px-[13%] lg:px-[15%]" id="projects">
     <h2 class="text-3xl font-medium md:text-5xl">What have I done?</h2>
 
     <div class="mt-10 grid grid-cols-2 gap-6">
         {#snippet project(name: string, description: string, tech: string, link: string)}
-            <div class="bg-container rounded-container flex flex-col justify-between p-10">
+            <div class="container flex flex-col justify-between">
                 <p class="text-sm mb-0.5 text-secondary">{tech}</p>
                 <h3 class="mb-2 text-2xl font-semibold">{name}</h3>
                 <p class="grow text-lg">{description}</p>
 
-                <div class="mt-8 flex justify-between items-center">
-                    <a href={link} target="_blank" rel="noopener noreferrer"> Live Demo </a>
-                    <a class="button-primary" href={link} target="_blank" rel="noopener noreferrer"> Source </a>
+                <div class="mt-8 flex gap-6 items-center">
+                    <a class="button-primary" href={link} target="_blank" rel="noopener noreferrer"> Live Demo </a>
+                    <a class="button-icon" href={link} target="_blank" rel="noopener noreferrer"> <img src="/icons/GitHub.png" alt="GitHub"> Source </a>
                 </div>
             </div>
         {/snippet}
