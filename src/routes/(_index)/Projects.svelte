@@ -81,14 +81,14 @@
 >
     <h2 class="text-3xl font-medium md:text-5xl">What have I done?</h2>
 
-    <div class="mt-10 grid grid-cols-2 gap-6">
+    <div class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
         {#snippet project({ name, description, tech, source, demo }: Project)}
             <div class="container flex flex-col justify-between">
                 <p class="text-secondary mb-0.5 text-sm">{tech}</p>
                 <h3 class="mb-2 text-2xl font-semibold">{name}</h3>
                 <p class="grow text-lg">{description}</p>
 
-                <div class="mt-8 flex items-center gap-6">
+                <div class="mt-8 flex flex-col items-start gap-6 sm:flex-row sm:items-center">
                     {#if demo}
                         <a
                             class="button-primary"
