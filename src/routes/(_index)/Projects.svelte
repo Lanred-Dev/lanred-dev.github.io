@@ -1,4 +1,6 @@
 <script lang="ts">
+    import scrollToElement from "$lib/utils/scrollToElement";
+
     interface Project {
         name: string;
         description: string;
@@ -70,15 +72,10 @@
         },
     ];
 
-    let Container: HTMLElement;
     let showAll: boolean = $state.raw(false);
 </script>
 
-<div
-    class="min-h-screen w-full px-[10%] py-[10%] md:px-[13%] lg:px-[15%]"
-    id="projects"
-    bind:this={Container}
->
+<div class="min-h-screen w-full px-[10%] py-[10%] md:px-[13%] lg:px-[15%]" id="projects">
     <h2 class="text-3xl font-medium md:text-5xl">What have I done?</h2>
 
     <div class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -119,7 +116,7 @@
         onclick={() => {
             showAll = !showAll;
 
-            if (!showAll) Container.scrollIntoView({ behavior: "smooth" });
+            if (!showAll) scrollToElement("#projects");
         }}
     >
         {#if showAll}Show Less{:else}Show All{/if}
