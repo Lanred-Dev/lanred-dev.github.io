@@ -26,7 +26,7 @@
         {
             name: "extro",
             description: "A 2D game engine written in Python, using pyray (Raylib) for rendering.",
-            tech: "Python, Raylib, C++",
+            tech: "Python, Raylib, C++, nanobind",
             source: "https://github.com/Lanred-Dev/extro",
         },
         {
