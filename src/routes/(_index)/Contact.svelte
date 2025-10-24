@@ -55,7 +55,10 @@
     bind:Canvas={BlobsCanvas}
 />
 
-<div class="relative px-[10%] py-[15%] md:px-[13%] lg:px-[15%]" id="contact">
+<div
+    class="relative px-[10%] py-[35%] sm:py-[25%] md:px-[13%] md:py-[15%] lg:px-[15%]"
+    id="contact"
+>
     <canvas
         class="absolute top-0 left-0 z-0 h-full w-full"
         bind:this={Canvas}

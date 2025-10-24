@@ -1,7 +1,7 @@
 <div class="cover-screen px-[10%] pt-[15%] md:px-[13%] lg:px-[15%]" id="about">
     <h2 class="text-3xl font-medium md:text-5xl">So... who am I?</h2>
 
-    <div class="mt-10 w-full space-y-4 text-lg md:pr-[35%]">
+    <div class="mt-10 w-full space-y-4 text-base md:pr-[35%] md:text-lg">
         <p>
             My name is Landon, and I'm a Computer Engineering student at the University of Alabama
             in Huntsville. I love solving problems and exploring how code interacts with the real
