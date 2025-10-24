@@ -51,6 +51,7 @@
 
     onMount(() => {
         Canvas = document.createElement("canvas");
+        // The reason for not using `willReadFrequently` here is because its not intended for the blobs to redrawn frequently.
         context = Canvas.getContext("2d") as CanvasRenderingContext2D;
 
         draw();
