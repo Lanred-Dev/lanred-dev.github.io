@@ -42,14 +42,14 @@
             y: 0.7,
             radius: 400,
             color: "#003DA5",
-            opacity: 0.075,
+            opacity: 0.1,
         },
         {
             x: 0.9,
             y: 0.5,
             radius: 300,
             color: "#fdda24",
-            opacity: 0.09,
+            opacity: 0.1,
         },
     ];
 
