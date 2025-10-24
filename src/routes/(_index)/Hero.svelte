@@ -2,12 +2,10 @@
 <script lang="ts">
     import BlurredBlobs from "$lib/Components/BlurredBlobs.svelte";
     import { onMount } from "svelte";
-    import { innerHeight, innerWidth } from "svelte/reactivity/window";
 
     const STAR_COUNT: number = 300;
     const STAR_SIZE: [number, number] = [0.5, 1.5];
     const FPS: number = 30;
-    const OFFSCREEN_SCALE: number = 0.4;
     const STAR_OPACITY: number = 0.3;
 
     interface Star {
@@ -105,21 +103,11 @@
     });
 
     $effect(() => {
-        if (
-            !Canvas ||
-            !OffscreenCanvas ||
-            typeof innerWidth.current !== "number" ||
-            typeof innerHeight.current !== "number"
-        )
-            return;
+        if (!Canvas) return;
 
         const ratio: number = Math.ceil(window.devicePixelRatio);
-        Canvas.width = innerWidth.current * ratio;
-        Canvas.height = innerHeight.current * ratio;
-        Canvas.style.width = `${innerWidth.current}px`;
-        Canvas.style.height = `${innerHeight.current}px`;
-        canvasWidth = innerWidth.current;
-        canvasHeight = innerHeight.current;
+        Canvas.width = canvasWidth * ratio;
+        Canvas.height = canvasHeight * ratio;
         context.setTransform(ratio, 0, 0, ratio, 0, 0);
 
         generateStars();
@@ -127,16 +115,21 @@
 </script>
 
 <div class="cover-screen relative overflow-hidden">
-    <canvas bind:this={Canvas} class="y-center x-center cover-screen"></canvas>
+    <canvas
+        class="y-center x-center cover-screen"
+        bind:this={Canvas}
+        bind:clientWidth={canvasWidth}
+        bind:clientHeight={canvasHeight}
+    ></canvas>
 
     <BlurredBlobs
         blobs={[
             {
                 x: 0.05,
-                y: 0.7,
+                y: 0.9,
                 radius: 400,
                 color: "#003DA5",
-                opacity: 0.1,
+                opacity: 0.2,
             },
             {
                 x: 0.9,
@@ -146,8 +139,8 @@
                 opacity: 0.1,
             },
         ]}
-        {canvasWidth}
-        {canvasHeight}
+        width={canvasWidth}
+        height={canvasHeight}
         bind:Canvas={BlobsCanvas}
     />
 
