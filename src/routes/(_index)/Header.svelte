@@ -38,9 +38,6 @@
         in:fly={{ x: 10, duration: 300 }}
         out:fade={{ duration: 300 }}
     >
-        <div
-            class="bg-uah-blue w-full transition-[height] duration-300 ease-in-out"
-            style:height={`${scrollPercent}%`}
-        ></div>
+        <div class="bg-uah-blue w-full" style:height={`${scrollPercent}%`}></div>
     </div>
 {/if}
