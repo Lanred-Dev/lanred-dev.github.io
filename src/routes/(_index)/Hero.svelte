@@ -19,6 +19,10 @@
         fadeSpeed: number;
     }
 
+    /**
+     * A "OffscreenCanvas" is used to draw and blur the colored blobs before drawing them onto the main canvas. This "OffscreenCanvas" is just a canvas element that is not added to the DOM. This approach is taken because the actual OffscreenCanvas API has limited browser support. And to achieve better performance the offscreen canvas is rendered at a smaller size (scaled down by OFFSCREEN_SCALE) and then scaled up when drawn onto the main canvas.
+     */
+
     interface Blob {
         x: number;
         y: number;
@@ -60,13 +64,35 @@
         };
     }
 
+    function drawBlobsOnOffscreenCanvas() {
+        offscreenContext.clearRect(0, 0, canvasWidth, canvasHeight);
+        offscreenContext.globalCompositeOperation = "lighter";
+
+        blobs.forEach(({ x, y, radius, color, opacity }) => {
+            offscreenContext.globalAlpha = opacity;
+            offscreenContext.fillStyle = color;
+            offscreenContext.beginPath();
+            offscreenContext.arc(canvasWidth * x, canvasHeight * y, radius, 0, Math.PI * 2);
+            offscreenContext.closePath();
+            offscreenContext.fill();
+        });
+
+        const imageData = offscreenContext.getImageData(
+            0,
+            0,
+            OffscreenCanvas.width,
+            OffscreenCanvas.height
+        );
+        const data = new Uint8Array(imageData.data.buffer);
+        glur(data, OffscreenCanvas.width, OffscreenCanvas.height, 140);
+        offscreenContext.putImageData(imageData, 0, 0);
+    }
+
     function draw() {
         delta = Date.now() - lastFrameTime;
         lastFrameTime = Date.now();
 
         context.clearRect(0, 0, canvasWidth, canvasHeight);
-        offscreenContext.clearRect(0, 0, canvasWidth, canvasHeight);
-        offscreenContext.globalCompositeOperation = "lighter";
 
         stars.forEach((star) => {
             if (star.isAnimating) {
@@ -96,25 +122,6 @@
             context.fill();
         });
 
-        blobs.forEach(({ x, y, radius, color, opacity }) => {
-            offscreenContext.globalAlpha = opacity;
-            offscreenContext.fillStyle = color;
-            offscreenContext.beginPath();
-            offscreenContext.arc(canvasWidth * x, canvasHeight * y, radius, 0, Math.PI * 2);
-            offscreenContext.closePath();
-            offscreenContext.fill();
-        });
-
-        const imageData = offscreenContext.getImageData(
-            0,
-            0,
-            OffscreenCanvas.width,
-            OffscreenCanvas.height
-        );
-        const data = new Uint8Array(imageData.data.buffer);
-        glur(data, OffscreenCanvas.width, OffscreenCanvas.height, 140);
-        offscreenContext.putImageData(imageData, 0, 0);
-
         context.globalAlpha = 0.5;
         context.drawImage(OffscreenCanvas, 0, 0, canvasWidth, canvasHeight);
     }
@@ -143,6 +150,7 @@
 
         generateStars();
 
+        drawBlobsOnOffscreenCanvas();
         requestAnimationFrame(draw);
         const renderInterval = setInterval(() => {
             requestAnimationFrame(draw);
@@ -176,6 +184,7 @@
         offscreenContext.setTransform(ratio, 0, 0, ratio, 0, 0);
         offscreenContext.scale(OFFSCREEN_SCALE, OFFSCREEN_SCALE);
 
+        drawBlobsOnOffscreenCanvas();
         generateStars();
     });
 </script>
