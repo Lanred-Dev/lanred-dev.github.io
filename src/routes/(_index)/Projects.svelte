@@ -15,7 +15,7 @@
     const PROJECTS: Project[] = [
         {
             name: "indxo.app",
-            description: "A Quizlet inspired studying website built with SvelteKit.",
+            description: "A Quizlet-inspired studying website built with SvelteKit.",
             tech: "SvelteKit, Node.js, MongoDB",
             source: "https://github.com/indxo-app/indxo.app",
             demo: {
