@@ -114,6 +114,28 @@
     });
 </script>
 
+<BlurredBlobs
+    blobs={[
+        {
+            x: 0.05,
+            y: 0.9,
+            radius: 400,
+            color: "#003DA5",
+            opacity: 0.2,
+        },
+        {
+            x: 0.9,
+            y: 0.5,
+            radius: 300,
+            color: "#fdda24",
+            opacity: 0.1,
+        },
+    ]}
+    width={canvasWidth}
+    height={canvasHeight}
+    bind:Canvas={BlobsCanvas}
+/>
+
 <div class="cover-screen relative overflow-hidden">
     <canvas
         class="y-center x-center cover-screen"
@@ -121,28 +143,6 @@
         bind:clientWidth={canvasWidth}
         bind:clientHeight={canvasHeight}
     ></canvas>
-
-    <BlurredBlobs
-        blobs={[
-            {
-                x: 0.05,
-                y: 0.9,
-                radius: 400,
-                color: "#003DA5",
-                opacity: 0.2,
-            },
-            {
-                x: 0.9,
-                y: 0.5,
-                radius: 300,
-                color: "#fdda24",
-                opacity: 0.1,
-            },
-        ]}
-        width={canvasWidth}
-        height={canvasHeight}
-        bind:Canvas={BlobsCanvas}
-    />
 
     <div class="y-center left-[10%] z-2 md:left-[13%] lg:left-[15%]">
         <h1 class="text-3xl font-medium md:text-5xl">Hi, I'm Landon</h1>
