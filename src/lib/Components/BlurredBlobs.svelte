@@ -1,12 +1,12 @@
 <script lang="ts">
     /**
-     * A "OffscreenCanvas" is used to draw and blur the colored blobs before drawing them onto the main canvas. This "OffscreenCanvas" is just a canvas element that is not added to the DOM. This approach is taken because the actual OffscreenCanvas API has limited browser support. And to achieve better performance the offscreen canvas is rendered at a smaller size (scaled down by OFFSCREEN_SCALE) and then scaled up when drawn onto the main canvas.
+     * A "OffscreenCanvas" is used to draw and blur the colored blobs before drawing them onto the main canvas. This "OffscreenCanvas" is just a canvas element that is not added to the DOM. This approach is taken because the actual OffscreenCanvas API has limited browser support. And to achieve better performance the offscreen canvas is rendered at a smaller size (scaled down by CANVAS_SCALE) and then scaled up when drawn onto the main canvas.
      */
 
     import glur from "glur";
     import { onMount } from "svelte";
 
-    const OFFSCREEN_SCALE: number = 0.4;
+    const CANVAS_SCALE: number = 0.6;
 
     export interface Blob {
         x: number;
@@ -18,27 +18,27 @@
 
     let {
         blobs,
-        canvasWidth,
-        canvasHeight,
+        width,
+        height,
         Canvas = $bindable(),
     }: {
         blobs: Blob[];
-        canvasWidth: number;
-        canvasHeight: number;
+        width: number;
+        height: number;
         Canvas: HTMLCanvasElement;
     } = $props();
 
     let context: CanvasRenderingContext2D;
 
     function draw() {
-        context.clearRect(0, 0, canvasWidth, canvasHeight);
+        context.clearRect(0, 0, width, height);
         context.globalCompositeOperation = "lighter";
 
         blobs.forEach(({ x, y, radius, color, opacity }) => {
             context.globalAlpha = opacity;
             context.fillStyle = color;
             context.beginPath();
-            context.arc(canvasWidth * x, canvasHeight * y, radius, 0, Math.PI * 2);
+            context.arc(width * x, height * y, radius, 0, Math.PI * 2);
             context.closePath();
             context.fill();
         });
@@ -54,21 +54,19 @@
         // The reason for not using `willReadFrequently` here is because its not intended for the blobs to redrawn frequently.
         context = Canvas.getContext("2d") as CanvasRenderingContext2D;
 
-        draw();
-
         return () => {
             Canvas.remove();
         };
     });
 
     $effect(() => {
-        if (!Canvas || canvasWidth <= 0 || canvasHeight <= 0) return;
+        if (!Canvas || width <= 0 || height <= 0) return;
 
         const ratio: number = Math.ceil(window.devicePixelRatio);
-        Canvas.width = canvasWidth * ratio * OFFSCREEN_SCALE;
-        Canvas.height = canvasHeight * ratio * OFFSCREEN_SCALE;
+        Canvas.width = width * CANVAS_SCALE * ratio;
+        Canvas.height = height * CANVAS_SCALE * ratio;
         context.setTransform(ratio, 0, 0, ratio, 0, 0);
-        context.scale(OFFSCREEN_SCALE, OFFSCREEN_SCALE);
+        context.scale(CANVAS_SCALE, CANVAS_SCALE);
 
         draw();
     });
