@@ -1,4 +1,5 @@
 <script lang="ts">
+    import scrollToElement from "$lib/utils/scrollToElement";
     import { onMount } from "svelte";
     import { fade, fly } from "svelte/transition";
 
@@ -23,8 +24,11 @@
             "bg-container/60 shadow-md backdrop-blur-md sm:gap-5! md:gap-10! lg:gap-15!",
     ]}
 >
-    {#snippet link(url: string, text: string)}
-        <a href={url} class="text-lg opacity-30 transition-opacity hover:opacity-100">{text}</a>
+    {#snippet link(element: string, text: string)}
+        <button
+            class="text-lg opacity-30 transition-opacity hover:opacity-100"
+            onclick={() => scrollToElement(element)}>{text}</button
+        >
     {/snippet}
 
     {@render link("#about", "About")}
