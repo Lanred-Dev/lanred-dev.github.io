@@ -246,52 +246,41 @@
         {@render profileLink(82, 28, "/icons/Resume.svg", "Resume", "/Landon_Redmond_Resume.pdf")}
     </div>
 
-    <button class="x-center bottom-10 z-2 size-7 opacity-70" aria-label="Scroll down">
-        <img src="/icons/ChevronDown.svg" alt="Down Arrow Icon" class="DownArrow1" />
-        <img src="/icons/ChevronDown.svg" alt="Down Arrow Icon" class="DownArrow2" />
+    <div class="x-center bottom-15 z-2 size-7 opacity-70">
+        <img
+            src="/icons/ChevronDown.svg"
+            alt="Down Arrow"
+            class="aspect-square w-full"
+            style:animation="Arrow 5s infinite ease-in-out"
+        />
 
         <style lang="postcss">
-            .DownArrow1,
-            .DownArrow2 {
-                animation: infinite 5s cubic-bezier(0.86, 0.93, 0, 1.54);
-                @apply absolute top-1/2 left-1/2 aspect-square w-full -translate-x-1/2 -translate-y-1/2;
-            }
-
-            .DownArrow1 {
-                animation-name: DownArrow1;
-            }
-
-            .DownArrow2 {
-                animation-name: DownArrow2;
-            }
-
-            @keyframes DownArrow1 {
+            @keyframes Arrow {
                 0%,
-                40%,
-                60%,
+                40% {
+                    opacity: 1;
+                    transform: translateY(0px);
+                }
+
+                47%,
+                80% {
+                    opacity: 0;
+                }
+
+                48% {
+                    transform: translateY(15px);
+                }
+
+                49% {
+                    transform: translateY(0px);
+                }
+
                 100% {
-                    transform: translateY(1rem);
-                }
-
-                50% {
-                    transform: translateY(0.2rem);
-                }
-            }
-
-            @keyframes DownArrow2 {
-                0%,
-                40%,
-                60%,
-                100% {
-                    transform: translateY(0rem);
-                }
-
-                50% {
-                    transform: translateY(-0.45rem);
+                    opacity: 1;
                 }
             }
         </style>
-    </button>
+    </div>
 
     <div
         class="from-page absolute bottom-0 left-0 z-1 h-1/8 w-full bg-linear-to-t to-transparent"
