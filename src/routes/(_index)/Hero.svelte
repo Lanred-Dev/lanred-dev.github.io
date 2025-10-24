@@ -1,7 +1,8 @@
+<!-- svelte-ignore non_reactive_update -->
 <script lang="ts">
+    import BlurredBlobs from "$lib/Components/BlurredBlobs.svelte";
     import { onMount } from "svelte";
     import { innerHeight, innerWidth } from "svelte/reactivity/window";
-    import glur from "glur";
 
     const STAR_COUNT: number = 300;
     const STAR_SIZE: [number, number] = [0.5, 1.5];
@@ -19,73 +20,20 @@
         fadeSpeed: number;
     }
 
-    /**
-     * A "OffscreenCanvas" is used to draw and blur the colored blobs before drawing them onto the main canvas. This "OffscreenCanvas" is just a canvas element that is not added to the DOM. This approach is taken because the actual OffscreenCanvas API has limited browser support. And to achieve better performance the offscreen canvas is rendered at a smaller size (scaled down by OFFSCREEN_SCALE) and then scaled up when drawn onto the main canvas.
-     */
-
-    interface Blob {
-        x: number;
-        y: number;
-        radius: number;
-        color: string;
-        opacity: number;
-    }
-
     let delta: number;
     let lastFrameTime: number = Date.now();
     let Canvas: HTMLCanvasElement;
     let context: CanvasRenderingContext2D;
-    let OffscreenCanvas: HTMLCanvasElement;
-    let offscreenContext: CanvasRenderingContext2D;
-    let canvasWidth: number = 0;
-    let canvasHeight: number = 0;
+    let BlobsCanvas: HTMLCanvasElement;
+    let canvasWidth: number = $state.raw(0);
+    let canvasHeight: number = $state.raw(0);
     let stars: Star[] = [];
-    let blobs: Blob[] = [
-        {
-            x: 0.05,
-            y: 0.7,
-            radius: 400,
-            color: "#003DA5",
-            opacity: 0.1,
-        },
-        {
-            x: 0.9,
-            y: 0.5,
-            radius: 300,
-            color: "#fdda24",
-            opacity: 0.1,
-        },
-    ];
 
     function getRandomPosition() {
         return {
             x: Math.random() * canvasWidth,
             y: Math.random() * canvasHeight,
         };
-    }
-
-    function drawBlobsOnOffscreenCanvas() {
-        offscreenContext.clearRect(0, 0, canvasWidth, canvasHeight);
-        offscreenContext.globalCompositeOperation = "lighter";
-
-        blobs.forEach(({ x, y, radius, color, opacity }) => {
-            offscreenContext.globalAlpha = opacity;
-            offscreenContext.fillStyle = color;
-            offscreenContext.beginPath();
-            offscreenContext.arc(canvasWidth * x, canvasHeight * y, radius, 0, Math.PI * 2);
-            offscreenContext.closePath();
-            offscreenContext.fill();
-        });
-
-        const imageData = offscreenContext.getImageData(
-            0,
-            0,
-            OffscreenCanvas.width,
-            OffscreenCanvas.height
-        );
-        const data = new Uint8Array(imageData.data.buffer);
-        glur(data, OffscreenCanvas.width, OffscreenCanvas.height, 140);
-        offscreenContext.putImageData(imageData, 0, 0);
     }
 
     function draw() {
@@ -123,7 +71,7 @@
         });
 
         context.globalAlpha = 0.5;
-        context.drawImage(OffscreenCanvas, 0, 0, canvasWidth, canvasHeight);
+        context.drawImage(BlobsCanvas, 0, 0, canvasWidth, canvasHeight);
     }
 
     function generateStars() {
@@ -143,21 +91,15 @@
 
     onMount(() => {
         context = Canvas.getContext("2d") as CanvasRenderingContext2D;
-        OffscreenCanvas = document.createElement("canvas");
-        offscreenContext = OffscreenCanvas.getContext("2d", {
-            willReadFrequently: true,
-        }) as CanvasRenderingContext2D;
 
         generateStars();
 
-        drawBlobsOnOffscreenCanvas();
         requestAnimationFrame(draw);
         const renderInterval = setInterval(() => {
             requestAnimationFrame(draw);
         }, 1000 / FPS);
 
         return () => {
-            OffscreenCanvas.remove();
             clearInterval(renderInterval);
         };
     });
@@ -174,23 +116,40 @@
         const ratio: number = Math.ceil(window.devicePixelRatio);
         Canvas.width = innerWidth.current * ratio;
         Canvas.height = innerHeight.current * ratio;
-        OffscreenCanvas.width = Canvas.width * OFFSCREEN_SCALE;
-        OffscreenCanvas.height = Canvas.height * OFFSCREEN_SCALE;
         Canvas.style.width = `${innerWidth.current}px`;
         Canvas.style.height = `${innerHeight.current}px`;
         canvasWidth = innerWidth.current;
         canvasHeight = innerHeight.current;
         context.setTransform(ratio, 0, 0, ratio, 0, 0);
-        offscreenContext.setTransform(ratio, 0, 0, ratio, 0, 0);
-        offscreenContext.scale(OFFSCREEN_SCALE, OFFSCREEN_SCALE);
 
-        drawBlobsOnOffscreenCanvas();
         generateStars();
     });
 </script>
 
 <div class="cover-screen relative overflow-hidden">
     <canvas bind:this={Canvas} class="y-center x-center cover-screen"></canvas>
+
+    <BlurredBlobs
+        blobs={[
+            {
+                x: 0.05,
+                y: 0.7,
+                radius: 400,
+                color: "#003DA5",
+                opacity: 0.1,
+            },
+            {
+                x: 0.9,
+                y: 0.5,
+                radius: 300,
+                color: "#fdda24",
+                opacity: 0.1,
+            },
+        ]}
+        {canvasWidth}
+        {canvasHeight}
+        bind:Canvas={BlobsCanvas}
+    />
 
     <div class="y-center left-[10%] z-2 md:left-[13%] lg:left-[15%]">
         <h1 class="text-3xl font-medium md:text-5xl">Hi, I'm Landon</h1>
