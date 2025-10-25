@@ -19,9 +19,9 @@
 
 <div
     class={[
-        "x-center rounded-container fixed top-10 z-10 flex items-center justify-center gap-5 px-10 py-3 transition-all duration-300 will-change-[gap] sm:gap-15 md:gap-25 lg:gap-35",
+        "x-center rounded-container fixed top-10 z-10 flex items-center justify-center gap-12 px-10 py-3 transition-all duration-300 will-change-[gap] md:gap-25 lg:gap-35",
         scrollPercent > 1 &&
-            "bg-container/60 shadow-md backdrop-blur-md sm:gap-5! md:gap-10! lg:gap-15!",
+            "bg-container/60 gap-8! shadow-md backdrop-blur-md md:gap-12! lg:gap-15!",
     ]}
 >
     {#snippet link(element: string, text: string)}
