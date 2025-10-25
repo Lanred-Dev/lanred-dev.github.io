@@ -38,7 +38,7 @@
 
 {#if scrollPercent > 5}
     <div
-        class="y-center rounded-container bg-container fixed right-10 z-10 h-28 w-2 overflow-hidden"
+        class="y-center rounded-container bg-container fixed right-2 z-10 h-32 w-2 overflow-hidden sm:right-5 md:right-10 md:h-28"
         in:fly={{ x: 10, duration: 300 }}
         out:fade={{ duration: 300 }}
     >
