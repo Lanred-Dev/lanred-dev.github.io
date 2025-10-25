@@ -12,10 +12,12 @@
 
 <Header />
 
-<Hero />
+<main>
+    <Hero />
 
-<AboutMe />
+    <AboutMe />
 
-<Projects />
+    <Projects />
 
-<Contact />
+    <Contact />
+</main>
