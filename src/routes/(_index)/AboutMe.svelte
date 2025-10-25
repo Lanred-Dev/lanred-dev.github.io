@@ -21,8 +21,8 @@
                 href="https://github.com/indxo-app/index.app"
                 target="_blank"
                 rel="noopener noreferrer">(indxo.app)</a
-            >. My goal with all my projects is to learn and bring to life the ideas that I have to
-            tackle real problems that I've faced.
+            >. My goal with all my projects is to learn and tackle real world problems while having
+            fun along the way.
         </p>
     </div>
 </div>
