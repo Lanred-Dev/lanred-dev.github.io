@@ -214,8 +214,7 @@
                     transform: translateY(0px);
                 }
 
-                47%,
-                80% {
+                47% {
                     opacity: 0;
                 }
 
@@ -224,11 +223,20 @@
                 }
 
                 49% {
-                    transform: translateY(0px);
+                    transform: translateY(-15px);
+                }
+
+                87% {
+                    transform: translateY(-15px);
+                }
+
+                89% {
+                    opacity: 0;
                 }
 
                 100% {
                     opacity: 1;
+                    transform: translateY(0px);
                 }
             }
         </style>
