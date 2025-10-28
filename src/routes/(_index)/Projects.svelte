@@ -17,7 +17,7 @@
             name: "indxo.app",
             description: "A Quizlet-inspired studying website built with SvelteKit.",
             tech: "SvelteKit, Node.js, MongoDB",
-            source: "https://github.com/indxo-app/indxo.app",
+            source: "https://github.com/Lanred-Dev/indxo.app",
             demo: {
                 text: "Live Demo",
                 url: "https://indxo.app",
