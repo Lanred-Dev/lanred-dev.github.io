@@ -45,7 +45,7 @@
 }
 
 @utility section {
-    @apply w-full px-[6%] py-[35%] sm:py-[25%] md:px-[13%] lg:px-[15%];
+    @apply w-full px-[6%] pt-[25%] sm:pt-[18%] md:px-[13%] lg:px-[15%];
 }
 
 @utility cover-screen {

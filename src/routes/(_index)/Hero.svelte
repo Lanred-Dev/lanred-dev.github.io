@@ -166,7 +166,7 @@
                 {href}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="profileLink group absolute flex size-8 -translate-x-1/2 -translate-y-1/2 items-center gap-2 transition-all duration-200 hover:scale-110"
+                class="profileLink group absolute flex size-8 -translate-x-1/2 -translate-y-1/2 items-center gap-2 transition-transform duration-200 hover:scale-110"
                 aria-label={alt}
                 style:right="{isMobile.current ? dx : x}%"
                 style:top="{isMobile.current ? dy : y}%"

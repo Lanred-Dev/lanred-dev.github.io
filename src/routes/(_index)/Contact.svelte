@@ -55,7 +55,7 @@
     bind:Canvas={BlobsCanvas}
 />
 
-<div class="section relative" id="contact">
+<div class="section relative py-[45%] sm:pb-[18%]" id="contact">
     <canvas
         class="absolute top-0 left-0 z-0 h-full w-full"
         bind:this={Canvas}
