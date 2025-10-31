@@ -141,7 +141,7 @@
 
 <div class="cover-screen relative overflow-hidden">
     <canvas
-        class="y-center x-center cover-screen"
+        class="y-center x-center h-screen w-full"
         bind:this={Canvas}
         bind:clientWidth={canvasWidth}
         bind:clientHeight={canvasHeight}
