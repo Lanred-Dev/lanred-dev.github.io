@@ -2,6 +2,7 @@
 <script lang="ts">
     import BlurredBlobs from "$lib/Components/BlurredBlobs.svelte";
     import { onMount } from "svelte";
+    import { MediaQuery } from "svelte/reactivity";
 
     const STAR_COUNT: number = 300;
     const STAR_SIZE: [number, number] = [0.5, 1.5];
@@ -26,6 +27,8 @@
     let canvasWidth: number = $state.raw(0);
     let canvasHeight: number = $state.raw(0);
     let stars: Star[] = [];
+    // 768px is the same sizing used for md: in tailwind
+    const isMobile: MediaQuery = new MediaQuery("(max-width: 768px)", true);
 
     function getRandomPosition() {
         return {
@@ -149,16 +152,24 @@
         <p class="mt-2 text-xl">a Computer Engineering student at UAH</p>
     </div>
 
-    <div class="y-center right-2 z-2 h-screen w-[40%]">
-        {#snippet profileLink(x: number, y: number, icon: string, alt: string, href: string)}
+    <div class="md:y-center absolute right-0 bottom-[10%] z-2 h-[50%] w-full md:h-dvh md:w-[40%]">
+        {#snippet profileLink(
+            x: number,
+            y: number,
+            dx: number,
+            dy: number,
+            icon: string,
+            alt: string,
+            href: string
+        )}
             <a
                 {href}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="profileLink group absolute flex size-8 -translate-x-1/2 -translate-y-1/2 items-center gap-2 transition-all duration-200 hover:scale-110"
                 aria-label={alt}
-                style:right="{x}%"
-                style:top="{y}%"
+                style:right="{isMobile.current ? dx : x}%"
+                style:top="{isMobile.current ? dy : y}%"
             >
                 <img src={icon} {alt} class="aspect-square w-full" />
                 <p
@@ -182,6 +193,8 @@
         {@render profileLink(
             42,
             41,
+            42,
+            41,
             "/icons/GitHub.png",
             "Github",
             "https://github.com/lanred-dev"
@@ -190,12 +203,22 @@
         {@render profileLink(
             65,
             73,
+            15,
+            73,
             "/icons/Mail.svg",
             "Email",
             "mailto:landon.redmond0@gmail.com"
         )}
 
-        {@render profileLink(82, 28, "/icons/Resume.svg", "Resume", "/Landon_Redmond_Resume.pdf")}
+        {@render profileLink(
+            82,
+            28,
+            76,
+            70,
+            "/icons/Resume.svg",
+            "Resume",
+            "/Landon_Redmond_Resume.pdf"
+        )}
     </div>
 
     <div class="x-center bottom-15 z-2 size-7 opacity-70">
