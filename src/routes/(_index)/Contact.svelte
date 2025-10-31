@@ -55,10 +55,7 @@
     bind:Canvas={BlobsCanvas}
 />
 
-<div
-    class="relative px-[10%] py-[35%] sm:py-[25%] md:px-[13%] md:py-[15%] lg:px-[15%]"
-    id="contact"
->
+<div class="section relative" id="contact">
     <canvas
         class="absolute top-0 left-0 z-0 h-full w-full"
         bind:this={Canvas}
@@ -76,7 +73,7 @@
         </p>
     </div>
 
-    <p class="text-secondary absolute bottom-10 left-[10%] md:left-[13%] lg:left-[15%]">
+    <p class="text-secondary absolute bottom-10 left-[6%] md:left-[13%] lg:left-[15%]">
         © 2025 Landon Redmond
     </p>
 </div>

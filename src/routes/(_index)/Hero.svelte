@@ -144,7 +144,7 @@
         bind:clientHeight={canvasHeight}
     ></canvas>
 
-    <div class="lg:y-center absolute top-[30%] left-[10%] z-2 md:left-[13%] lg:left-[15%]">
+    <div class="lg:y-center absolute top-[30%] left-[6%] z-2 md:left-[13%] lg:left-[15%]">
         <h1 class="text-4xl font-medium md:text-5xl">Hi, I'm Landon</h1>
         <p class="mt-2 text-xl">a Computer Engineering student at UAH</p>
     </div>

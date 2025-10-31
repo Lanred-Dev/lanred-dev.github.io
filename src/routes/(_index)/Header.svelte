@@ -6,9 +6,10 @@
     let scrollPercent: number = $state.raw(0);
 
     function determineScrollPercent() {
-        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-        const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
-        const clientHeight = document.documentElement.clientHeight || window.innerHeight;
+        const scrollTop: number = document.documentElement.scrollTop || document.body.scrollTop;
+        const scrollHeight: number =
+            document.documentElement.scrollHeight || document.body.scrollHeight;
+        const clientHeight: number = document.documentElement.clientHeight || window.innerHeight;
         scrollPercent = (scrollTop / (scrollHeight - clientHeight)) * 100;
     }
 
@@ -38,7 +39,7 @@
 
 {#if scrollPercent > 5}
     <div
-        class="y-center rounded-container bg-container fixed right-2 z-10 h-32 w-2 overflow-hidden sm:right-5 md:right-10 md:h-28"
+        class="y-center rounded-container bg-container fixed right-2 z-10 h-32 w-1.5 overflow-hidden sm:right-5 md:right-10 md:h-28 md:w-2"
         in:fly={{ x: 10, duration: 300 }}
         out:fade={{ duration: 300 }}
     >

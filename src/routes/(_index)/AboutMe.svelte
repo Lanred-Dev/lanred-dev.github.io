@@ -1,4 +1,4 @@
-<div class="cover-screen px-[10%] pt-[15%] md:px-[13%] lg:px-[15%]" id="about">
+<div class="section" id="about">
     <h2 class="text-3xl font-medium md:text-5xl">So... who am I?</h2>
 
     <div class="mt-10 w-full space-y-4 text-base md:pr-[35%] md:text-lg">

@@ -76,7 +76,7 @@
     let showAll: boolean = $state.raw(false);
 </script>
 
-<div class="min-h-screen w-full px-[10%] py-[10%] md:px-[13%] lg:px-[15%]" id="projects">
+<div class="section min-h-screen" id="projects">
     <h2 class="text-3xl font-medium md:text-5xl">What have I done?</h2>
 
     <div class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">

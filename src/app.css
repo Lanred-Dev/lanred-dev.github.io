@@ -44,8 +44,12 @@
     }
 }
 
+@utility section {
+    @apply w-full px-[6%] py-[35%] sm:py-[25%] md:px-[13%] lg:px-[15%];
+}
+
 @utility cover-screen {
-    @apply h-screen w-full;
+    @apply h-dvh w-full;
 }
 
 @utility x-center {
