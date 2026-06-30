@@ -149,7 +149,9 @@
 
     <div class="lg:y-center absolute top-[30%] left-[6%] z-2 md:left-[13%] lg:left-[15%]">
         <h1 class="text-4xl font-medium md:text-5xl">Hi, I'm Landon</h1>
-        <p class="mt-2 text-xl">a Computer Engineering student at UAH</p>
+        <p class="mt-2 text-xl">
+            a Computer Engineering student at<br />the University of Alabama at Huntsville
+        </p>
     </div>
 
     <div class="md:y-center absolute right-0 bottom-[10%] z-2 h-[50%] w-full md:h-dvh md:w-[40%]">
@@ -210,15 +212,7 @@
             "mailto:landon.redmond0@gmail.com"
         )}
 
-        {@render profileLink(
-            82,
-            28,
-            76,
-            70,
-            "/icons/Resume.svg",
-            "Resume",
-            "/Landon_Redmond_Resume.pdf"
-        )}
+        {@render profileLink(82, 28, 76, 70, "/icons/Resume.svg", "Resume", "/Resume.pdf")}
     </div>
 
     <div class="x-center bottom-15 z-2 size-7 opacity-70">
