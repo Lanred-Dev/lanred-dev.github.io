@@ -1,3 +1,3 @@
-# [lanred-dev.github.io](https://lanred-dev.github.io)
+# [landonr.me](https://landonr.me)
 
 This repository contains the source for my portfolio website.
