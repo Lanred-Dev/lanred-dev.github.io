@@ -5,7 +5,7 @@
 
     let scrollPercent: number = $state.raw(0);
 
-    function determineScrollPercent() {
+    function updateScrollPercent() {
         const scrollTop: number = document.documentElement.scrollTop || document.body.scrollTop;
         const scrollHeight: number =
             document.documentElement.scrollHeight || document.body.scrollHeight;
@@ -13,14 +13,14 @@
         scrollPercent = (scrollTop / (scrollHeight - clientHeight)) * 100;
     }
 
-    onMount(determineScrollPercent);
+    onMount(updateScrollPercent);
 </script>
 
-<svelte:window on:scroll={determineScrollPercent} />
+<svelte:window onscroll={updateScrollPercent} />
 
 <div
     class={[
-        "x-center rounded-container fixed top-10 z-10 flex items-center justify-center gap-12 px-10 py-3 transition-all duration-300 will-change-[gap] md:gap-25 lg:gap-35",
+        "x-center fixed top-10 z-10 flex items-center justify-center gap-12 rounded-full px-10 py-3 transition-all duration-300 will-change-[gap] md:gap-25 lg:gap-35",
         scrollPercent > 1 &&
             "bg-container/60 gap-8! shadow-md backdrop-blur-md md:gap-12! lg:gap-15!",
     ]}
@@ -39,7 +39,7 @@
 
 {#if scrollPercent > 5}
     <div
-        class="y-center rounded-container bg-container fixed right-2 z-10 h-32 w-1.5 overflow-hidden sm:right-5 md:right-10 md:h-28 md:w-2"
+        class="y-center bg-container fixed right-2 z-10 h-32 w-1.5 overflow-hidden rounded-full sm:right-5 md:right-10 md:h-28 md:w-2"
         in:fly={{ x: 10, duration: 300 }}
         out:fade={{ duration: 300 }}
     >
