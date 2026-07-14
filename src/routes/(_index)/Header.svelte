@@ -7,7 +7,7 @@
 
 <div
     class={[
-        "x-center fixed top-10 z-10 flex items-center justify-center gap-12 rounded-full px-10 py-3 transition-all duration-300 will-change-[gap] md:gap-25 lg:gap-35",
+        "x-center fixed top-10 z-10 grid grid-cols-3 items-center justify-center gap-12 rounded-full px-10 py-3 transition-all duration-300 will-change-[gap] md:gap-25 lg:gap-35",
         viewportContext.scrollY > 1 &&
             "bg-container/60 gap-8! shadow-md backdrop-blur-md md:gap-12! lg:gap-15!",
     ]}
