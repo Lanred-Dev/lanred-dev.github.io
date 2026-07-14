@@ -20,6 +20,6 @@
         in:fly={{ x: 20, duration: 300 }}
         out:fade={{ duration: 300 }}
     >
-        <div class="bg-uah-blue w-full" style:height={`${scrollPercent}%`}></div>
+        <div class="bg-scrollbar w-full" style:height={`${scrollPercent}%`}></div>
     </div>
 {/if}
