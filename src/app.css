@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-    --color-page: #020208;
+    --background-color-page: #020208;
     --color-scrollbar: #003da5;
 
     --color-uah-blue: #003da5;
