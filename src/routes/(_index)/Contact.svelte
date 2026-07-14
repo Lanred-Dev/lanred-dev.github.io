@@ -1,5 +1,6 @@
 <script lang="ts">
     import Icon from "$lib/components/Icon.svelte";
+    import socials from "$lib/utils/socials";
 </script>
 
 <div class="section" id="contact">
@@ -11,20 +12,24 @@
     </div>
 
     <div class="flex-center flex-col">
-        <a href="mailto:landon.redmond@gmail.com" class="button-attention">
-            <Icon icon="general/Mail" />
-            landon.redmond@gmail.com
+        <a href={socials.email.url} class="button-attention">
+            <Icon icon={socials.email.icon} />
+            {socials.email.text}
         </a>
 
-        <div class="flex gap-x-2 mt-4">
-            <a
-                href="https://github.com/lanred-dev"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub"
-            >
-                <Icon class="size-7" icon="logos/GitHub" />
-            </a>
+        <div class="flex gap-x-4 mt-4">
+            {#each Object.values(socials) as social, key (key)}
+                {#if social.url !== socials.email.url}
+                    <a
+                        href={social.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={social.text}
+                    >
+                        <Icon class="size-7 fill-white" icon={social.icon} />
+                    </a>
+                {/if}
+            {/each}
         </div>
     </div>
 </div>
