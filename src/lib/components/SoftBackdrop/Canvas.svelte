@@ -1,5 +1,5 @@
 <script lang="ts">
-    import glur from "glur";
+    import { blurRGBA } from "glur";
     import { onMount, setContext, type ComponentProps, type Snippet } from "svelte";
     import { softBackdropContextKey, type SoftBackdropContext } from ".";
     import type Blob from "./Blob.svelte";
@@ -9,7 +9,7 @@
         class: className,
         width,
         height,
-        scale = 0.6,
+        scale = 0.9,
         children,
     }: {
         class: ClassValue;
@@ -49,7 +49,7 @@
 
         const imageData = context.getImageData(0, 0, Canvas.width, Canvas.height);
         const data = new Uint8Array(imageData.data.buffer);
-        glur(data, Canvas.width, Canvas.height, 140);
+        blurRGBA(data, Canvas.width, Canvas.height, 140);
         context.putImageData(imageData, 0, 0);
     }
 
@@ -70,6 +70,6 @@
     });
 </script>
 
-<canvas class={className} bind:this={Canvas}>
+<canvas class={className} bind:clientWidth={width} bind:clientHeight={height} bind:this={Canvas}>
     {@render children?.()}
 </canvas>
