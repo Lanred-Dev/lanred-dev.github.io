@@ -6,7 +6,6 @@ const config = {
     preprocess: vitePreprocess({ script: true }),
 
     kit: {
-        appDir: "internal",
         adapter: adapter(),
     },
 };
