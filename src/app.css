@@ -2,19 +2,27 @@
 
 @theme {
     --color-page: #020208;
-    --color-scrollbar: #d4d7d8;
+    --color-scrollbar: #003da5;
 
     --color-uah-blue: #003da5;
 
-    --background-color-container: #0a0a11;
-    --background-color-button: #2b1f4f;
+    --color-attention: #003da5;
+    --color-attention-light: #98adda;
+    --color-input: #0e1014;
+    --color-container: #0a0a11;
 
+    --background-color-light: #171920;
+
+    --text-color-placeholder: #737373;
+    --text-color-dark: #dae0e7;
     --text-color-primary: #f7f9fa;
-    --text-color-secondary: #b0b8c1;
+    --text-color-input: #a2a5b3;
 
-    --border-color-container: #1e1e28;
+    --border-color-primary: #161a21;
+    --border-color-input: #1e232a;
 
-    --radius-container: 20px;
+    --radius-container: 22px;
+    --radius-input: 15px;
     --radius-button: 15px;
 }
 
@@ -44,8 +52,8 @@
     }
 }
 
-@utility section {
-    @apply w-full px-[6%] pt-[25%] sm:pt-[18%] md:px-[13%] lg:px-[15%];
+@utility page-x-padding {
+    @apply px-[6%] md:px-[13%] lg:px-[15%];
 }
 
 @utility cover-screen {
@@ -60,22 +68,32 @@
     @apply absolute top-1/2 -translate-y-1/2;
 }
 
-@utility button-primary {
-    @apply bg-button rounded-button px-5 py-2 text-center text-lg font-medium;
+@utility flex-center {
+    @apply flex items-center justify-center;
 }
 
-@utility button-secondary {
-    @apply bg-container border-container rounded-button border px-5 py-2 text-center text-lg font-medium;
-}
+@layer components {
+    .button-attention,
+    .button-primary,
+    .button-icon {
+        @apply rounded-button flex items-center justify-center gap-2 px-5 py-2 text-lg font-medium transition-all duration-200 disabled:pointer-events-none disabled:opacity-50;
 
-@utility button-icon {
-    @apply flex items-center gap-2 text-center text-lg font-medium opacity-70 transition-opacity hover:opacity-100;
-
-    img {
-        @apply size-5;
+        & img,
+        & svg,
+        & [role="img"] {
+            @apply size-7;
+        }
     }
-}
 
-@utility container {
-    @apply bg-container border-container rounded-container border p-8;
+    .button-attention {
+        @apply bg-attention hover:bg-attention-light text-container;
+    }
+
+    .button-primary {
+        @apply text-input border-input bg-input hover:bg-light hover:text-primary border;
+    }
+
+    .container-primary {
+        @apply rounded-container border-primary bg-container overflow-hidden border p-4;
+    }
 }
