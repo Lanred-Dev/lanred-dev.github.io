@@ -7,14 +7,14 @@
 
     let {
         class: className,
-        width,
-        height,
+        width = 0,
+        height = 0,
         scale = 0.9,
         children,
     }: {
         class: ClassValue;
-        width: number;
-        height: number;
+        width?: number;
+        height?: number;
         scale?: number;
         children: Snippet<[]>;
     } = $props();

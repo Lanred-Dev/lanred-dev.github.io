@@ -4,16 +4,16 @@
 
     let {
         class: className,
-                width,
-        height,
+        width = 0,
+        height = 0,
         starCount = 300,
         starSizeRange = [0.5, 1.5],
         fps = 30,
         starOpacity = 0.3,
     }: {
         class?: ClassValue;
-        width: number;
-        height: number;
+        width?: number;
+        height?: number;
         starCount?: number;
         starSizeRange?: [number, number];
         fps?: number;
@@ -120,10 +120,5 @@
     });
 </script>
 
-<canvas
-    class={className}
-    bind:clientWidth={width}
-    bind:clientHeight={height}
-    bind:this={Canvas}
->
+<canvas class={className} bind:clientWidth={width} bind:clientHeight={height} bind:this={Canvas}>
 </canvas>
