@@ -2,6 +2,7 @@
     import { getContext, onMount } from "svelte";
     import { softBackdropContextKey, type SoftBackdropContext } from ".";
 
+    // eslint-disable-next-line svelte/no-unused-props
     let properties: {
         x: number;
         y: number;
