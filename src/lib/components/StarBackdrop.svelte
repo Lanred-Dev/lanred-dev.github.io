@@ -4,12 +4,16 @@
 
     let {
         class: className,
+                width,
+        height,
         starCount = 300,
         starSizeRange = [0.5, 1.5],
         fps = 30,
         starOpacity = 0.3,
     }: {
         class?: ClassValue;
+        width: number;
+        height: number;
         starCount?: number;
         starSizeRange?: [number, number];
         fps?: number;
@@ -30,14 +34,12 @@
     let lastFrameAt: number = Date.now();
     let Canvas: HTMLCanvasElement;
     let context: CanvasRenderingContext2D;
-    let canvasWidth: number = $state.raw(0);
-    let canvasHeight: number = $state.raw(0);
     let stars: Star[] = [];
 
     function getRandomPosition() {
         return {
-            x: Math.random() * canvasWidth,
-            y: Math.random() * canvasHeight,
+            x: Math.random() * width,
+            y: Math.random() * height,
         };
     }
 
@@ -45,7 +47,7 @@
         delta = Date.now() - lastFrameAt;
         lastFrameAt = Date.now();
 
-        context.clearRect(0, 0, canvasWidth, canvasHeight);
+        context.clearRect(0, 0, width, height);
 
         stars.forEach((star) => {
             if (star.isAnimating) {
@@ -110,8 +112,8 @@
         if (!Canvas) return;
 
         const ratio: number = Math.ceil(window.devicePixelRatio);
-        Canvas.width = canvasWidth * ratio;
-        Canvas.height = canvasHeight * ratio;
+        Canvas.width = width * ratio;
+        Canvas.height = height * ratio;
         context.setTransform(ratio, 0, 0, ratio, 0, 0);
 
         generateStars();
@@ -120,8 +122,8 @@
 
 <canvas
     class={className}
-    bind:clientWidth={canvasWidth}
-    bind:clientHeight={canvasHeight}
+    bind:clientWidth={width}
+    bind:clientHeight={height}
     bind:this={Canvas}
 >
 </canvas>
