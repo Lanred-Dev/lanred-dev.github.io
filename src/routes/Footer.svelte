@@ -1,3 +1,3 @@
-<footer class="flex-center py-8">
-    <p class="text-dark text-center mt-24">© 2026 Landon Redmond</p>
+<footer class="flex-center pb-8 pt-16">
+    <p class="text-dark text-center">© 2026 Landon Redmond</p>
 </footer>
