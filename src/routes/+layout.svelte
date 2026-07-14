@@ -2,6 +2,7 @@
     import "../app.css";
     import { setViewportContext } from "$lib/utils/viewportContext";
     import Scrollbar from "./Scrollbar.svelte";
+    import Footer from "./Footer.svelte";
     import { onMount } from "svelte";
 
     let { children } = $props();
@@ -31,4 +32,8 @@
 
 <Scrollbar />
 
-{@render children?.()}
+<main class="w-full">
+    {@render children()}
+</main>
+
+<Footer />
