@@ -1,79 +1,30 @@
-<!-- svelte-ignore non_reactive_update -->
 <script lang="ts">
-    import BlurredBlobs from "$lib/Components/BlurredBlobs.svelte";
-    import { onMount } from "svelte";
-
-    const FPS: number = 1;
-
-    let BlobsCanvas: HTMLCanvasElement;
-    let Canvas: HTMLCanvasElement;
-    let context: CanvasRenderingContext2D;
-    let canvasWidth: number = $state.raw(0);
-    let canvasHeight: number = $state.raw(0);
-
-    function draw() {
-        context.clearRect(0, 0, canvasWidth, canvasHeight);
-        context.globalAlpha = 0.5;
-        context.drawImage(BlobsCanvas, 0, 0, canvasWidth, canvasHeight);
-    }
-
-    onMount(() => {
-        context = Canvas.getContext("2d") as CanvasRenderingContext2D;
-
-        requestAnimationFrame(draw);
-        const renderInterval = setInterval(() => {
-            requestAnimationFrame(draw);
-        }, 1000 / FPS);
-
-        return () => {
-            clearInterval(renderInterval);
-        };
-    });
-
-    $effect(() => {
-        if (!Canvas) return;
-
-        const ratio: number = Math.ceil(window.devicePixelRatio);
-        Canvas.width = canvasWidth * ratio;
-        Canvas.height = canvasHeight * ratio;
-        context.setTransform(ratio, 0, 0, ratio, 0, 0);
-    });
+    import Icon from "$lib/components/Icon.svelte";
 </script>
 
-<BlurredBlobs
-    blobs={[
-        {
-            x: 0.9,
-            y: 1,
-            radius: 300,
-            color: "#fdda24",
-            opacity: 0.2,
-        },
-    ]}
-    width={canvasWidth}
-    height={canvasHeight}
-    bind:Canvas={BlobsCanvas}
-/>
-
-<div class="section relative py-[45%] sm:pb-[18%]" id="contact">
-    <canvas
-        class="absolute top-0 left-0 z-0 h-full w-full"
-        bind:this={Canvas}
-        bind:clientWidth={canvasWidth}
-        bind:clientHeight={canvasHeight}
-    ></canvas>
-
-    <div class="relative z-1">
-        <h2 class="text-3xl font-medium md:text-5xl">Need to contact me?</h2>
-        <p class="mt-2 text-xl">
-            You can send me an email at <a
-                href="mailto:landon.redmond@gmail.com"
-                class="text-[#e4c83b]">landon.redmond@gmail.com</a
-            >.
+<div class="section" id="contact">
+    <div class="header">
+        <h2 class="title">Need to contact me?</h2>
+        <p class="subtitle">
+            I'm always open to discussing new projects, ideas, and to be part of your visions!
         </p>
     </div>
 
-    <p class="text-secondary absolute bottom-10 left-[6%] md:left-[13%] lg:left-[15%]">
-        © 2025 Landon Redmond
-    </p>
+    <div class="flex-center flex-col">
+        <a href="mailto:landon.redmond@gmail.com" class="button-attention">
+            <Icon icon="general/Mail" />
+            landon.redmond@gmail.com
+        </a>
+
+        <div class="flex gap-x-2 mt-4">
+            <a
+                href="https://github.com/lanred-dev"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub"
+            >
+                <Icon class="size-7" icon="logos/GitHub" />
+            </a>
+        </div>
+    </div>
 </div>
