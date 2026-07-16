@@ -16,7 +16,7 @@
 
 {#if viewportContext.scrollY > 1}
     <div
-        class="y-center bg-container fixed right-2 z-10 h-32 w-1.5 overflow-hidden rounded-full sm:right-5 md:right-10 md:h-28 md:w-2"
+        class="y-center bg-container fixed right-2 z-10 h-1/3 w-1.5 overflow-hidden rounded-full sm:right-5 md:right-10"
         in:fly={{ x: 20, duration: 300 }}
         out:fade={{ duration: 300 }}
     >
