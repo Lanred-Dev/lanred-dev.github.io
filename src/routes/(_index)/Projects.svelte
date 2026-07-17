@@ -1,125 +1,179 @@
 <script lang="ts">
-    import scrollToElement from "$lib/utils/scrollToElement";
+    import { resolve } from "$app/paths";
+    import Icon from "$lib/components/Icon.svelte";
+    import { indxo, extro, MandelbrotViewer, justreddit } from "$lib/data/projects";
+    import { GitHub } from "$lib/data/socials";
+    import {
+        ImageCarousel,
+        ImageCarouselImage,
+        ImageCarouselIndicators,
+    } from "$lib/components/ImageCarousel";
 
-    interface Project {
-        name: string;
-        description: string;
-        tech: string;
-        source: string;
-        demo?: {
-            text: string;
-            url: string;
-        };
+    let isSnapping = false;
+    let lastScrollY = 0;
+    let coastingTimeout: NodeJS.Timeout | undefined;
+
+    function breakSnap() {
+        isSnapping = false;
     }
 
-    const PROJECTS: Project[] = [
-        {
-            name: "indxo.app",
-            description: "A Quizlet-inspired studying website built with SvelteKit.",
-            tech: "SvelteKit, Node.js, MongoDB",
-            source: "https://github.com/Lanred-Dev/indxo.app",
-            demo: {
-                text: "Live Demo",
-                url: "https://indxo.app",
-            },
-        },
-        {
-            name: "extro",
-            description:
-                "A 2D game engine written in Python that uses Pyray (Raylib) as its backend.",
-            tech: "Python, Raylib, C++, nanobind",
-            source: "https://github.com/Lanred-Dev/extro",
-        },
-        {
-            name: "justreddit",
-            description:
-                "A simple no-dependency Reddit API wrapper for getting post, comment, and subreddit metadata.",
-            tech: "TypeScript, Node.js",
-            source: "https://github.com/Lanred-Dev/justreddit",
-            demo: {
-                text: "NPM Package",
-                url: "https://www.npmjs.com/package/justreddit",
-            },
-        },
-        {
-            name: "Verbose",
-            description:
-                "A simple Discord bot that keeps track of the most used words in a server.",
-            tech: "TypeScript, Discord.js, Node.js",
-            source: "https://github.com/Lanred-Dev/verbose",
-        },
-        {
-            name: "Mandelbrot Viewer",
-            description: "A real-time Mandelbrot set viewer written in C++ using OpenGL.",
-            tech: "C++, OpenGL",
-            source: "https://github.com/Lanred-Dev/mandelbrot-viewer",
-            demo: {
-                text: "Download",
-                url: "https://github.com/Lanred-Dev/mandelbrot-viewer/releases",
-            },
-        },
-        {
-            name: "HarderMC",
-            description:
-                "A Paper plugin that makes Minecraft survival harder with events, stronger mobs, and a fear system.",
-            tech: "Java, PaperMC",
-            source: "https://github.com/Lanred-Dev/HarderMC",
-        },
-        {
-            name: "Fluid",
-            description: "Alternative to Roblox's TweenService.",
-            tech: "Lua",
-            source: "https://github.com/Lanred-Dev/Fluid",
-        },
-    ];
+    function snapToNearestProject() {
+        if (isSnapping) return;
 
-    let showAll: boolean = $state.raw(false);
+        const projectCards = document.querySelectorAll(".snap-project");
+        const viewportCenter = window.innerHeight / 2;
+        const stretch = window.innerHeight * 0.45;
+
+        for (let index = 0; index < projectCards.length; index++) {
+            const card = projectCards[index];
+            const boundingBox = card.getBoundingClientRect();
+            const cardCenter = boundingBox.top + boundingBox.height / 2;
+            const distanceToCenter = Math.abs(viewportCenter - cardCenter);
+
+            if (distanceToCenter > 5 && distanceToCenter < stretch) {
+                isSnapping = true;
+                card.scrollIntoView({ behavior: "smooth", block: "center" });
+                setTimeout(() => {
+                    isSnapping = false;
+                }, 600);
+
+                break;
+            }
+        }
+    }
+
+    function handleScroll() {
+        if (isSnapping) return;
+
+        const currentScrollY = window.scrollY;
+        const speed = Math.abs(currentScrollY - lastScrollY);
+        lastScrollY = currentScrollY;
+
+        if (speed > 25) {
+            clearTimeout(coastingTimeout);
+            coastingTimeout = undefined;
+            return;
+        }
+
+        if (!coastingTimeout)
+            coastingTimeout = setTimeout(() => {
+                snapToNearestProject();
+                coastingTimeout = undefined;
+            }, 50);
+    }
 </script>
 
-<div class="section min-h-screen" id="projects">
-    <h2 class="text-3xl font-medium md:text-5xl">What have I done?</h2>
+<svelte:window
+    onscroll={handleScroll}
+    onwheel={breakSnap}
+    ontouchstart={breakSnap}
+    onpointerdown={breakSnap}
+/>
 
-    <div class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
-        {#snippet project({ name, description, tech, source, demo }: Project)}
-            <div class="container flex flex-col justify-between">
-                <p class="text-secondary mb-0.5 text-sm">{tech}</p>
-                <h3 class="mb-2 text-2xl font-semibold">{name}</h3>
-                <p class="grow text-lg">{description}</p>
-
-                <div class="mt-8 flex flex-col items-start gap-6 sm:flex-row sm:items-center">
-                    {#if demo}
-                        <a
-                            class="button-primary"
-                            href={demo.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            {demo.text}
-                        </a>
-                    {/if}
-
-                    <a class="button-icon" href={source} target="_blank" rel="noopener noreferrer">
-                        <img src="/icons/GitHub.png" alt="GitHub" /> Source
-                    </a>
-                </div>
-            </div>
-        {/snippet}
-
-        {#each PROJECTS as info, index}
-            {#if showAll || index < 4}
-                {@render project(info)}
-            {/if}
-        {/each}
+<div class="section" id="projects">
+    <div class="header h-svh flex-center flex-col">
+        <h2 class="title">What have I done?</h2>
+        <p class="subtitle">
+            Here’s a look at various personal and collaborative projects that showcase my skills and
+            passion for development. I primarily write in C++, TypeScript (JS), Python, Java, and
+            Luau, and I rely on tech like Node.js, Svelte, CMake, and Visual Studio to bring these
+            ideas to life.
+        </p>
     </div>
 
-    <button
-        class="button-secondary mt-6"
-        onclick={() => {
-            showAll = !showAll;
+    <div>
+        <div class="flex flex-col">
+            {#each [indxo, extro, MandelbrotViewer, justreddit] as project, index (index)}
+                <div class="snap-project min-h-svh flex flex-col-reverse md:flex-row items-center">
+                    <div class="w-full lg:w-1/2">
+                        <li class="flex gap-2">
+                            {#each project.technologies as technology, index (index)}
+                                <p class="rounded-full px-2 py-1 font-medium bg-light text-dark">
+                                    {technology}
+                                </p>
+                            {/each}
+                        </li>
 
-            if (!showAll) scrollToElement("#projects");
-        }}
-    >
-        {#if showAll}Show Less{:else}Show All{/if}
-    </button>
+                        <div class="mb-8 mt-4">
+                            <div class="flex items-center gap-x-2 flex-wrap-reverse mb-1">
+                                <p class="text-3xl font-medium md:text-5xl">{project.name}</p>
+
+                                {#if project.version}
+                                    <p
+                                        class="rounded-full px-2 py-1 font-medium"
+                                        style:background-color="var({project.version.color})"
+                                    >
+                                        {project.version.text}
+                                    </p>
+                                {/if}
+                            </div>
+
+                            <p class="text-dark mt-2 text-xl">{project.description}</p>
+                        </div>
+
+                        <div class="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+                            {#if project.action}
+                                <a
+                                    class="button-attention"
+                                    href={project.action.url}
+                                    target="_blank"
+                                    rel="external noopener noreferrer"
+                                >
+                                    {project.action.text}
+                                </a>
+                            {/if}
+
+                            <a
+                                class="button-primary"
+                                href={project.source}
+                                target="_blank"
+                                rel="external noopener noreferrer"
+                            >
+                                <Icon icon="logos/GitHub" />
+                                Source
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="w-full lg:w-1/2 flex items-center justify-end">
+                        <ImageCarousel
+                            class="w-3/4 aspect-square overflow-hidden rounded-container"
+                            interval={null}
+                        >
+                            <ImageCarouselImage
+                                image="/images/Hero/img1.jpg"
+                                transitionInX="100%"
+                                transitionOutX="-100%"
+                            />
+                            <ImageCarouselImage
+                                image="/images/Hero/img2.jpg"
+                                transitionInX="100%"
+                                transitionOutX="-100%"
+                            />
+                            <ImageCarouselImage
+                                image="/images/Hero/img3.jpg"
+                                transitionInX="100%"
+                                transitionOutX="-100%"
+                            />
+
+                            <ImageCarouselIndicators />
+                        </ImageCarousel>
+                    </div>
+                </div>
+            {/each}
+        </div>
+
+        <div class="w-full flex-center gap-4 sticky bottom-6">
+            <a
+                class="button-primary p-2"
+                href={GitHub.url}
+                target="_blank"
+                rel="external noopener noreferrer"
+            >
+                <Icon icon={GitHub.icon} />
+            </a>
+
+            <a href={resolve("/projects")} class="button-attention"> View All Projects </a>
+        </div>
+    </div>
 </div>
