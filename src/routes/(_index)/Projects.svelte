@@ -173,7 +173,10 @@
                 <Icon icon={GitHub.icon} />
             </a>
 
-            <a href={resolve("/projects")} class="button-attention"> View All Projects </a>
+            <a href={resolve("/projects")} class="button-attention">
+                View All Projects
+                <Icon icon="general/arrows/Right" class="fill-black" />
+            </a>
         </div>
     </div>
 </div>
