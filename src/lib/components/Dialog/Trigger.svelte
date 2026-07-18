@@ -1,0 +1,29 @@
+<script lang="ts">
+    import { getContext, type Snippet } from "svelte";
+    import { type DialogContext, dialogContextKey } from ".";
+
+    let {
+        children,
+        onclick,
+        ...properties
+    }: {
+        children: Snippet<[]>;
+        onclick?: () => void;
+        [key: string]: unknown;
+    } = $props();
+
+    const dialog: DialogContext = getContext(dialogContextKey);
+</script>
+
+<button
+    type="button"
+    onclick={(event) => {
+        event.stopPropagation();
+        dialog.isVisible = !dialog.isVisible;
+
+        if (onclick) onclick();
+    }}
+    {...properties}
+>
+    {@render children()}
+</button>
