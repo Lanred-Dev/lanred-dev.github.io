@@ -140,21 +140,13 @@
                             class="w-3/4 aspect-square overflow-hidden rounded-container"
                             interval={null}
                         >
-                            <ImageCarouselImage
-                                image="/images/Hero/img1.jpg"
-                                transitionInX="100%"
-                                transitionOutX="-100%"
-                            />
-                            <ImageCarouselImage
-                                image="/images/Hero/img2.jpg"
-                                transitionInX="100%"
-                                transitionOutX="-100%"
-                            />
-                            <ImageCarouselImage
-                                image="/images/Hero/img3.jpg"
-                                transitionInX="100%"
-                                transitionOutX="-100%"
-                            />
+                            {#each project.images as image, index (index)}
+                                <ImageCarouselImage
+                                    {image}
+                                    transitionInX="100%"
+                                    transitionOutX="-100%"
+                                />
+                            {/each}
 
                             <ImageCarouselIndicators />
                         </ImageCarousel>

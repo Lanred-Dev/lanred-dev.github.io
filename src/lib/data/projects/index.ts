@@ -14,6 +14,7 @@ export interface Project {
         text: string;
         url: string;
     };
+    images: string[];
 }
 
 export { default as extro } from "./extro";
