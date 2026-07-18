@@ -10,6 +10,11 @@ const extro: Project = {
         color: "--color-warning",
     },
     source: "https://github.com/Lanred-Dev/extro",
+    images: [
+        "/images/projects/extro/animated_sprite.gif",
+        "/images/projects/extro/physics_and_collisions.gif",
+        "/images/projects/extro/sin.gif",
+    ],
 };
 
 export default extro;

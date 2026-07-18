@@ -14,6 +14,11 @@ const MandelbrotViewer: Project = {
         text: "Download",
         url: "https://github.com/Lanred-Dev/mandelbrot-viewer/releases",
     },
+    images: [
+        "/images/projects/MandelbrotViewer/screenshot1.png",
+        "/images/projects/MandelbrotViewer/screenshot2.png",
+        "/images/projects/MandelbrotViewer/screenshot3.png",
+    ],
 };
 
 export default MandelbrotViewer;

@@ -14,6 +14,12 @@ const indxo: Project = {
         text: "Live Demo",
         url: "https://indxo.app",
     },
+    images: [
+        "/images/projects/indxo/create-study-set.png",
+        "/images/projects/indxo/favorites.png",
+        "/images/projects/indxo/sort-mode.png",
+        "/images/projects/indxo/study-set.png",
+    ],
 };
 
 export default indxo;
