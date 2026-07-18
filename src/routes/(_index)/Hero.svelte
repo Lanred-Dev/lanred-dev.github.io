@@ -4,6 +4,7 @@
     import Icon from "$lib/components/Icon.svelte";
     import { MediaQuery } from "svelte/reactivity";
     import { innerWidth, innerHeight } from "svelte/reactivity/window";
+    import { GitHub, email, LinkedIn } from "$lib/data/socials";
 
     // 768px is the same sizing used for md: in tailwind
     const isMobile: MediaQuery = new MediaQuery("(max-width: 768px)", true);
@@ -113,26 +114,8 @@
             </a>
         {/snippet}
 
-        {@render profileLink(
-            42,
-            41,
-            42,
-            41,
-            "logos/GitHub",
-            "GitHub",
-            "https://github.com/lanred-dev"
-        )}
-
-        {@render profileLink(
-            65,
-            73,
-            15,
-            73,
-            "general/Mail",
-            "Email",
-            "mailto:landon.redmond0@gmail.com"
-        )}
-
-        {@render profileLink(82, 28, 76, 70, "general/Resume", "Resume", "/Resume.pdf")}
+        {@render profileLink(42, 41, 42, 41, GitHub.icon, GitHub.text, GitHub.url)}
+        {@render profileLink(65, 73, 15, 73, email.icon, email.text, email.url)}
+        {@render profileLink(82, 28, 76, 70, LinkedIn.icon, LinkedIn.text, LinkedIn.url)}
     </div>
 </div>
