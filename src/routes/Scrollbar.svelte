@@ -42,12 +42,12 @@
 
 {#if viewportContext.scrollY > 1 || isHoldingThumb}
     <div
-        class="y-center bg-container fixed right-2 z-10 h-1/3 w-1.5 rounded-full sm:right-5 md:right-10"
+        class="y-center fixed right-2 z-10 h-1/3 w-2 sm:right-5 md:right-10"
         in:fly={{ x: 20, duration: 300 }}
         out:fade={{ duration: 300 }}
     >
         <button
-            class="w-full h-full x-center y-center"
+            class="w-full h-full x-center y-center bg-container hover:scale-x-150 transition-transform rounded-full"
             aria-label="Scrollbar track"
             onclick={(event) => handleMouseMove(event, true)}
             bind:this={Track}
