@@ -14,7 +14,7 @@
 >
     {#snippet link(element: string, text: string)}
         <button
-            class="text-lg opacity-30 transition-opacity hover:opacity-100 w-full text-center"
+            class="text-lg text-placeholder transition-colors hover:text-primary w-full text-center"
             onclick={() => scrollToElement(element)}>{text}</button
         >
     {/snippet}
