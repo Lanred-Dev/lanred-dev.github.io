@@ -12,6 +12,15 @@
     let isSnapping = false;
     let lastScrollY = 0;
     let coastingTimeout: NodeJS.Timeout | undefined;
+    let viewAllProjectsButton: {
+        backgroundColor: string | null;
+        hoverColor: string | null;
+        textColor: string | null;
+    } = $state({
+        backgroundColor: null,
+        hoverColor: null,
+        textColor: null,
+    });
 
     function breakSnap() {
         isSnapping = false;
@@ -20,17 +29,30 @@
     function snapToNearestProject() {
         if (isSnapping) return;
 
-        const projectCards = document.querySelectorAll(".snap-project");
-        const viewportCenter = window.innerHeight / 2;
-        const stretch = window.innerHeight * 0.45;
+        const projectCards: NodeListOf<HTMLDivElement> =
+            document.querySelectorAll("[data-project]");
+        const viewportCenter: number = window.innerHeight / 2;
+        const stretch: number = window.innerHeight * 0.47;
+        let isAtProject: boolean = false;
 
         for (let index = 0; index < projectCards.length; index++) {
             const card = projectCards[index];
-            const boundingBox = card.getBoundingClientRect();
-            const cardCenter = boundingBox.top + boundingBox.height / 2;
-            const distanceToCenter = Math.abs(viewportCenter - cardCenter);
+            const boundingBox: DOMRect = card.getBoundingClientRect();
+            const cardCenter: number = boundingBox.top + boundingBox.height / 2;
+            const distanceToCenter: number = Math.abs(viewportCenter - cardCenter);
+
+            if (distanceToCenter <= stretch) {
+                isAtProject = true;
+            }
 
             if (distanceToCenter > 5 && distanceToCenter < stretch) {
+                const accentColor: string = card.getAttribute("data-accent-color") || "";
+                const accentColorLight: string = card.getAttribute("data-accent-color-light") || "";
+                const accentTextColor: string = card.getAttribute("data-accent-text-color") || "";
+                viewAllProjectsButton.backgroundColor = accentColor;
+                viewAllProjectsButton.hoverColor = accentColorLight;
+                viewAllProjectsButton.textColor = accentTextColor;
+
                 isSnapping = true;
                 card.scrollIntoView({ behavior: "smooth", block: "center" });
                 setTimeout(() => {
@@ -39,6 +61,12 @@
 
                 break;
             }
+        }
+
+        if (!isAtProject) {
+            viewAllProjectsButton.backgroundColor = null;
+            viewAllProjectsButton.hoverColor = null;
+            viewAllProjectsButton.textColor = null;
         }
     }
 
@@ -65,6 +93,7 @@
 
 <svelte:window
     onscroll={handleScroll}
+    onresize={snapToNearestProject}
     onwheel={breakSnap}
     ontouchstart={breakSnap}
     onpointerdown={breakSnap}
@@ -84,7 +113,14 @@
     <div>
         <div class="flex flex-col">
             {#each [indxo, extro, MandelbrotViewer, justreddit] as project, index (index)}
-                <div class="snap-project min-h-svh flex flex-col-reverse md:flex-row items-center">
+                <div
+                    class="min-h-svh flex flex-col-reverse lg:flex-row items-center justify-center gap-y-8"
+                    data-project
+                    data-accent-color={project.theme.accentColor}
+                    data-accent-color-light={project.theme.accentColorLight}
+                    data-accent-text-color={project.theme.accentTextColor}
+                    style:font-family="'{project.theme.font}', sans-serif"
+                >
                     <div class="w-full lg:w-1/2">
                         <li class="flex gap-2">
                             {#each project.technologies as technology, index (index)}
@@ -111,13 +147,16 @@
                             <p class="text-dark mt-2 text-xl">{project.description}</p>
                         </div>
 
-                        <div class="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+                        <div class="flex gap-x-4 gap-y-2 flex-wrap">
                             {#if project.action}
                                 <a
-                                    class="button-attention"
+                                    class="button-attention bg-(--background-color) hover:bg-(--hover-background-color)"
                                     href={project.action.url}
                                     target="_blank"
                                     rel="external noopener noreferrer"
+                                    style:color={project.theme.accentTextColor}
+                                    style:--background-color={project.theme.accentColor}
+                                    style:--hover-background-color={project.theme.accentColorLight}
                                 >
                                     {project.action.text}
                                 </a>
@@ -135,9 +174,9 @@
                         </div>
                     </div>
 
-                    <div class="w-full lg:w-1/2 flex items-center justify-end">
+                    <div class="w-full lg:w-1/2 flex items-center justify-start lg:justify-end">
                         <ImageCarousel
-                            class="w-3/4 aspect-square overflow-hidden rounded-container"
+                            class="w-4/5 md:w-1/2 lg:w-3/4 aspect-square overflow-hidden rounded-container"
                             interval={null}
                         >
                             {#each project.images as image, index (index)}
@@ -148,7 +187,7 @@
                                 />
                             {/each}
 
-                            <ImageCarouselIndicators />
+                            <ImageCarouselIndicators selectedColor={project.theme.accentColor} />
                         </ImageCarousel>
                     </div>
                 </div>
@@ -165,7 +204,15 @@
                 <Icon icon={GitHub.icon} />
             </a>
 
-            <a href={resolve("/projects")} class="button-attention">
+            <a
+                href={resolve("/projects")}
+                class="button-attention bg-(--background-color) hover:bg-(--hover-background-color)"
+                style:color={viewAllProjectsButton.textColor ?? "var(--color-container)"}
+                style:--background-color={viewAllProjectsButton.backgroundColor ??
+                    "var(--color-attention)"}
+                style:--hover-background-color={viewAllProjectsButton.hoverColor ??
+                    "var(--color-attention-light)"}
+            >
                 View All Projects
                 <Icon icon="general/arrows/Right" class="fill-black" />
             </a>
