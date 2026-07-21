@@ -3,7 +3,7 @@ import type { Project } from ".";
 const extro: Project = {
     name: "extro",
     description: "A 2D game engine written in Python that uses Pyray (Raylib) as its backend.",
-    technologies: ["pyray (raylib)", "nanobind", "CMake"],
+    technologies: ["raylib", "nanobind", "CMake"],
     languages: ["Python", "C++"],
     version: {
         text: "v0.11.0-alpha",
@@ -15,6 +15,12 @@ const extro: Project = {
         "/images/projects/extro/physics_and_collisions.gif",
         "/images/projects/extro/sin.gif",
     ],
+    theme: {
+        font: "GoogleSansCode",
+        accentColor: "#00BFFF",
+        accentColorLight: "#66D9FF",
+        accentTextColor: "var(--color-container)",
+    },
 };
 
 export default extro;

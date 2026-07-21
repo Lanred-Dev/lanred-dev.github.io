@@ -15,6 +15,12 @@ export interface Project {
         url: string;
     };
     images: string[];
+    theme: {
+        font: string;
+        accentColor: string;
+        accentColorLight: string;
+        accentTextColor: string;
+    };
 }
 
 export { default as extro } from "./extro";

@@ -20,6 +20,12 @@ const indxo: Project = {
         "/images/projects/indxo/sort-mode.png",
         "/images/projects/indxo/study-set.png",
     ],
+    theme: {
+        font: "PlusJakartaSans",
+        accentColor: "#0b4294",
+        accentColorLight: "#98adda",
+        accentTextColor: "#fbfcff",
+    },
 };
 
 export default indxo;

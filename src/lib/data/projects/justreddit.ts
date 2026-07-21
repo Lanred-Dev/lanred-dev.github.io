@@ -15,6 +15,13 @@ const justreddit: Project = {
         text: "NPM Package",
         url: "https://www.npmjs.com/package/justreddit",
     },
+    images: [],
+    theme: {
+        font: "GoogleSansCode",
+        accentColor: "#D93900",
+        accentTextColor: "#FFFFFF",
+        accentColorLight: "#FF6A4D",
+    },
 };
 
 export default justreddit;

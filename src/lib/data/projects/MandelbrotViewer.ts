@@ -19,6 +19,12 @@ const MandelbrotViewer: Project = {
         "/images/projects/MandelbrotViewer/screenshot2.png",
         "/images/projects/MandelbrotViewer/screenshot3.png",
     ],
+    theme: {
+        font: "GoogleSansCode",
+        accentColor: "#ff0000",
+        accentColorLight: "#ff6666",
+        accentTextColor: "#ffffff",
+    },
 };
 
 export default MandelbrotViewer;
