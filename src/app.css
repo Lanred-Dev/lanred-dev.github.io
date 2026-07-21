@@ -9,6 +9,9 @@
 
     --color-attention: #ffc107;
     --color-attention-light: #ffe082;
+    --color-alert: #e2584e;
+    --color-success: #81b496;
+    --color-warning: #de9e36;
     --color-input: #0e1014;
     --color-container: #0a0a11;
 
@@ -29,15 +32,29 @@
 
 @layer base {
     @font-face {
+        font-family: "Montserrat";
+        src: url("/fonts/Montserrat.ttf") format("truetype");
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
         font-family: "PlusJakartaSans";
         src: url("/fonts/PlusJakartaSans.ttf") format("truetype");
         font-style: normal;
         font-display: swap;
     }
 
+    @font-face {
+        font-family: "GoogleSansCode";
+        src: url("/fonts/GoogleSansCode.ttf") format("truetype");
+        font-style: normal;
+        font-display: swap;
+    }
+
     body {
-        font-family: PlusJakartaSans, sans-serif;
-        @apply bg-page text-primary cover-screen;
+        font-family: "Montserrat", sans-serif;
+        @apply bg-page text-primary cover-screen scroll-smooth;
     }
 
     button,
