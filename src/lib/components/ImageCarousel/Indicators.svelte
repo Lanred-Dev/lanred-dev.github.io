@@ -3,7 +3,11 @@
     import type { ClassValue } from "svelte/elements";
     import { imageCarouselKey, type ImageCarouselContext } from ".";
 
-    let { class: className }: { class?: ClassValue } = $props();
+    let {
+        class: className,
+        selectedColor = "var(--color-attention)",
+        unselectedColor = "var(--background-color-light)",
+    }: { class?: ClassValue; selectedColor?: string; unselectedColor?: string } = $props();
 
     const imageCarousel: ImageCarouselContext = getContext(imageCarouselKey);
 </script>
@@ -12,10 +16,10 @@
     {#each Array.from({ length: imageCarousel.imageCount }, (_, index) => index) as index (index)}
         <li>
             <button
-                class={[
-                    "size-4 rounded-full transition-colors",
-                    index === imageCarousel.currentImageIndex ? "bg-attention-light" : "bg-light",
-                ]}
+                class="size-4 rounded-full transition-colors border border-primary"
+                style:background-color={index === imageCarousel.currentImageIndex
+                    ? selectedColor
+                    : unselectedColor}
                 onclick={() => {
                     imageCarousel.setCurrentImageIndex(index);
                 }}
